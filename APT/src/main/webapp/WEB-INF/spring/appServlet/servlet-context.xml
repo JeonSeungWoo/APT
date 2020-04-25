@@ -40,9 +40,10 @@
 
 	<!-- 이미지경로 설정 -->
 	<beans:bean id="uploadPath" class="java.lang.String">
-		<beans:constructor-arg value="C:\file">
+		<beans:constructor-arg value="C:\Temp">
 		</beans:constructor-arg>
 	</beans:bean>
+
     
     
 	

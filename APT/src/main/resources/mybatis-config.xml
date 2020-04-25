@@ -5,7 +5,9 @@
 <configuration>
 
   <typeAliases>
-    <package name="org.woo.apt.member.domain"/>    
+    <package name="org.woo.apt.member.domain"/>   
+    <package name="org.woo.apt.file.domain"/> 
+    <package name="org.woo.apt.util"/>      
   </typeAliases>
 
 
