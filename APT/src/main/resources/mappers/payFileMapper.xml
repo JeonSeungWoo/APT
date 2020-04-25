@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="payFile">
+	<!--게시판 영역 -->
+	<insert id="insert" parameterType="PayFileVO">
+		insert into
+		tbl_payFile(pfno,title,content,pay,userid,regdate)
+		values(nextval('seq_tbl_payFile'),#{title},#{content},#{pay},#{userid},now())
+	</insert>
+
+	<select id="read" resultType="PayFileVO">
+		select * from tbl_payFile
+		 WHERE pfno = #{pfno}
+	</select>
+
+	<update id="update" parameterType="PayFileVO">
+		UPDATE tbl_payFile
+		SET TITLE =
+		#{title},
+		CONTENT = #{content},
+		pay = #{pay},
+		userid = #{userid}
+		WHERE
+		pfno = #{pfno}
+	</update>
+
+	<delete id="delete">
+		DELETE FROM tbl_payFile WHERE pfno = #{pfno}
+	</delete>
+
+
+	<!--List -->
+	<select id="list" parameterType="Paging" resultType="PayFileVO">
+		select
+		*
+		from tbl_payFile
+		<if test="sType != null">
+			<if test="sType eq 'title'.toString()">
+				where title like '%'||#{keyword}||'%'
+			</if>
+			<if test="sType eq 'content'.toString()">
+				where content like '%'||#{keyword}||'%'
+			</if>
+		</if>
+		order by pfno desc
+		LIMIT #{pageSize} OFFSET (#{page} - 1) * #{pageSize}
+	</select>
+
+	<select id="listCount" resultType="java.lang.Integer">
+		select count(1) from tbl_payFile
+		<if test="sType != null">
+			<if test="sType eq 'title'.toString()">
+				where title like '%'||#{keyword}||'%'
+			</if>
+			<if test="sType eq 'content'.toString()">
+				where content like '%'||#{keyword}||'%'
+			</if>
+		</if>
+	</select>
+
+	<!-- 이미지 영역 -->
+
+	<insert parameterType="PayFileFilesVO" id="fileInsert">
+		insert into tbl_payFile_file(pffno,pfno,path,filename,regdate)
+		values
+		(nextval('seq_tbl_payFile_file') ,(select pfno from tbl_payFile order by pfno desc limit 1)
+		,#{path} ,#{filename},now())
+	</insert>
+
+	<!--이미지 리스트 쿼리 -->
+	<select id="fileList" resultType="PayFileFilesVO">
+		select
+		pffno,pfno,path,filename,regdate
+		from tbl_payFile_file
+		where pfno = #{pfno}
+	</select>
+
+	<!--이미지 보여주는 쿼리. -->
+	<select id="fileShow" resultType="PayFileFilesVO">
+		select
+		pffno,pfno,path,filename,regdate
+		from
+		tbl_payFile_file
+		where pfno = #{pfno}
+		and filename = #{filename}
+	</select>
+
+	<!--전체 -->
+	<delete id="fileDelete">
+		delete from
+		tbl_payFile_file
+		where pfno = #{pfno}
+	</delete>
+
+
+	<insert id="fileInsertOne" parameterType="PayFileFilesVO">
+		insert into
+		tbl_payFile_file(pffno,pfno,path,filename,regdate)
+		values(nextval('seq_tbl_payFile_file'),#{pfno} ,#{path} ,#{filename},now())
+	</insert>
+
+	<!--한개 -->
+	<delete id="fileDeleteOne">
+		delete
+		from tbl_payFile_file
+		where pfno = #{pfno} and filename = #{filename}
+	</delete>
+
+
+
+</mapper> 
