@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="member">
+
+	<select id="login" resultType="MemberVO">
+		select * from tbl_member
+		where userid = #{userid}
+	</select>
+
+	<select id="checkId" resultType="java.lang.Integer">
+		select count(*) from tbl_member where userid = #{userid}
+	</select>
+
+	<insert id="signUp">
+		insert into
+		tbl_member(mno,userid,pw,name,email,phone,auth,interlock_type,regdate)
+		values
+		(nextval('seq_tbl_member'),#{userid},#{pw},#{name},#{email}
+		,#{phone},3,'일반',now());
+	</insert>
+
+</mapper> 

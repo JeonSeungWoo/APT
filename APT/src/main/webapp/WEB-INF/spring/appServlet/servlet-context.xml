@@ -21,6 +21,31 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
+	 <beans:bean id="MemberIntercepter" class="org.woo.apt.member.intercepter.MemberIntercepter">
+    </beans:bean>
+    <!-- Interceptor 설정 -->
+    <interceptors>
+        <interceptor>
+            <mapping path="/member/seccess"/>
+            <beans:ref bean="MemberIntercepter"/>
+        </interceptor>
+    </interceptors>
+    
+    
+     <!-- 이미지 업로드multipartResolver-->
+	<beans:bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<beans:property name="maxUploadSize" value="90485760"></beans:property>
+	</beans:bean>
+
+	<!-- 이미지경로 설정 -->
+	<beans:bean id="uploadPath" class="java.lang.String">
+		<beans:constructor-arg value="C:\file">
+		</beans:constructor-arg>
+	</beans:bean>
+    
+    
+	
 	<context:component-scan base-package="org.woo.apt" />
 	
 	
