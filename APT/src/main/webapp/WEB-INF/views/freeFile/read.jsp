@@ -13,19 +13,18 @@
 
 
 	<form id="form" method="get"enctype="multipart/form-data">
-		<input type="hidden" name="pfno" id="pfno" value="${vo.pfno}">
+		<input type="hidden" name="ffno" id="ffno" value="${vo.ffno}">
 		<input type="hidden" id="page" value="${param.page}">
 		<table border="1">
 			<tr>
 				<th>제목</th>
 				<th>내용</th>
-				<th>금액</th>
 			</tr>
 			
 			<tr>
 				<td><input type="text" name="title" id="title" value="${read.title }" readonly="readonly"></td>
 				<td><input type="text" name="content" id="content" value="${read.content }" readonly="readonly"></td>
-				<td><input type="text" name="pay" id="pay" value="${read.pay }" readonly="readonly"></td>
+				
 			</tr>
 
 		</table>
@@ -33,7 +32,7 @@
 			<c:forEach items="${list}" var="list" >
 				<li>
 				<input type="hidden" class="filename" value="${list.filename}">
-				 <h5>${list.filename} </h5>
+				<h5>${list.filename} </h5>
 				</li>
 			</c:forEach>
 		</ul>
@@ -52,16 +51,12 @@
 	<script type="text/javascript">
 		$(document).ready(function() {
 			var form = $("#form");
-			/* $(".img").on("click", function() {
-				var src = $(this).attr("src");
-                window.location.href = src;
-			}); */
 			
 			$("#payBtn").on("click", function() {
-				var pfno = $("#pfno").val();
+				var ffno = $("#ffno").val();
 				var filename = $(".filename").val();
 				var filenameEnc = encodeURI(filename);
-                location.href = "/payUpload/file?pfno="+ pfno+"&filename="+filenameEnc;
+                location.href = "/freeUpload/file?ffno="+ ffno+"&filename="+filenameEnc;
 			});
 
 			$("#homeBtn").on("click", function() {
@@ -75,8 +70,8 @@
 			});
 			
 			$("#updateBtn").on("click", function() {
-				var pfno = $("#pfno").val();
-                location.href = "/payFile/updatePage?pfno="+pfno;
+				var ffno = $("#ffno").val();
+                location.href = "/freeFile/updatePage?ffno="+ffno;
 			});
 		
 		

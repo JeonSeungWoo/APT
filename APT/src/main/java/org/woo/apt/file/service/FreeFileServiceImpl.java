@@ -3,35 +3,30 @@ package org.woo.apt.file.service;
 import java.io.File;
 import java.util.List;
 
-import javax.annotation.Resource;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-import org.woo.apt.file.dao.PayFileDAO;
-import org.woo.apt.file.dao.PayFileFilesDAO;
-import org.woo.apt.file.domain.PayFileFilesVO;
-import org.woo.apt.file.domain.PayFileVO;
+import org.woo.apt.file.dao.FreeFileDAO;
+import org.woo.apt.file.dao.FreeFileFilesDAO;
+import org.woo.apt.file.domain.FreeFileFilesVO;
+import org.woo.apt.file.domain.FreeFileVO;
 import org.woo.apt.util.Paging;
 import org.woo.apt.util.UploadFileUtils;
 
 @Service
-public class PayFileServiceImpl implements PayFileService {
+public class FreeFileServiceImpl implements FreeFileService {
 
 	@Inject
-	private PayFileDAO dao;
+	private FreeFileDAO dao;
 	
 	@Inject
-	private PayFileFilesDAO fdao;
-//
-//	@Resource(name = "uploadPath")
-//	String uploadPath;
-	
+	private FreeFileFilesDAO fdao;
+
 	@Transactional
 	@Override
-	public void insert(PayFileVO vo, List<MultipartFile> file) throws Exception {
-		// 이미지를 추가.
+	public void insert(FreeFileVO vo, List<MultipartFile> file) throws Exception {
 
 		dao.insert(vo);
 
@@ -39,35 +34,36 @@ public class PayFileServiceImpl implements PayFileService {
 			String originalName = file.get(i).getOriginalFilename();
 			byte[] fileData = file.get(i).getBytes();
 			// 유틸시작
-			String uploadedFileName = UploadFileUtils.saveFile("C:"+File.separator+"payTemp", originalName, fileData);
-			String path = "C:"+File.separator+"payTemp" + uploadedFileName.substring(0, 12);
+			String uploadedFileName = UploadFileUtils.saveFile("C:"+File.separator+"freeTemp", originalName, fileData);
+			String path = "C:"+File.separator+"freeTemp" + uploadedFileName.substring(0, 12);
 			String saveFileName = uploadedFileName.substring(uploadedFileName.lastIndexOf("/") + 1);
 			String formatName = originalName.substring(originalName.lastIndexOf(".") + 1);
 			//확장자 null 체크
 			if (formatName == null || formatName.equals("")) {
 			}else{
-				PayFileFilesVO fvo = new PayFileFilesVO();
+				FreeFileFilesVO fvo = new FreeFileFilesVO();
 				fvo.setFilename(saveFileName);
 				fvo.setPath(path);
 				fdao.fileInsert(fvo);
 			}
 		}
+		
 	}
 
 	@Override
-	public PayFileVO read(int pfno) throws Exception {
-		return dao.read(pfno);
+	public FreeFileVO read(int ffno) throws Exception {
+		return dao.read(ffno);
 	}
 
 	@Override
-	public void update(PayFileVO vo) throws Exception {
+	public void update(FreeFileVO vo) throws Exception {
 		dao.update(vo);
 	}
 
 	@Transactional
 	@Override
-	public void delete(int pfno) throws Exception {
-		List<PayFileFilesVO> list = fdao.fileList(pfno);
+	public void delete(int ffno) throws Exception {
+		List<FreeFileFilesVO> list = fdao.fileList(ffno);
         String location = "";
 		String fileName = "";	
 		UploadFileUtils util =  new UploadFileUtils();
@@ -77,12 +73,13 @@ public class PayFileServiceImpl implements PayFileService {
 		fileName = list.get(i).getFilename();
 		util.deleteFile(location, fileName);
 		}
-		fdao.fileDelete(pfno);
-		dao.delete(pfno);
+		fdao.fileDelete(ffno);
+		dao.delete(ffno);
+		
 	}
 
 	@Override
-	public List<PayFileVO> list(Paging paging) throws Exception {
+	public List<FreeFileVO> list(Paging paging) throws Exception {
 		return dao.list(paging);
 	}
 
@@ -90,5 +87,6 @@ public class PayFileServiceImpl implements PayFileService {
 	public int listCount() throws Exception {
 		return dao.listCount();
 	}
+	
 
 }

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="freeFile">
+	<!--게시판 영역 -->
+	<insert id="insert" parameterType="FreeFileVO">
+		insert into
+		tbl_freeFile(ffno,title,content,userid,regdate)
+		values(nextval('seq_tbl_freeFile'),#{title},#{content},#{userid},now())
+	</insert>
+
+	<select id="read" resultType="FreeFileVO">
+		select * from tbl_freeFile
+		 WHERE ffno = #{ffno}
+	</select>
+
+	<update id="update" parameterType="FreeFileVO">
+		UPDATE tbl_freeFile
+		SET TITLE =
+		#{title},
+		CONTENT = #{content},
+		userid = #{userid}
+		WHERE
+		ffno = #{ffno}
+	</update>
+
+	<delete id="delete">
+		DELETE FROM tbl_freeFile WHERE ffno = #{ffno}
+	</delete>
+
+
+	<!--List -->
+	<select id="list" parameterType="Paging" resultType="FreeFileVO">
+		select
+		*
+		from tbl_freeFile
+		<if test="sType != null">
+			<if test="sType eq 'title'.toString()">
+				where title like '%'||#{keyword}||'%'
+			</if>
+			<if test="sType eq 'content'.toString()">
+				where content like '%'||#{keyword}||'%'
+			</if>
+		</if>
+		order by ffno desc
+		LIMIT #{pageSize} OFFSET (#{page} - 1) * #{pageSize}
+	</select>
+
+	<select id="listCount" resultType="java.lang.Integer">
+		select count(1) from tbl_freeFile
+		<if test="sType != null">
+			<if test="sType eq 'title'.toString()">
+				where title like '%'||#{keyword}||'%'
+			</if>
+			<if test="sType eq 'content'.toString()">
+				where content like '%'||#{keyword}||'%'
+			</if>
+		</if>
+	</select>
+
+	<!-- 이미지 영역 -->
+
+	<insert parameterType="FreeFileFilesVO" id="fileInsert">
+		insert into tbl_freeFile_file(fffno,ffno,path,filename,regdate)
+		values
+		(nextval('seq_tbl_freeFile_file') ,(select ffno from tbl_freeFile order by ffno desc limit 1)
+		,#{path} ,#{filename},now())
+	</insert>
+
+	<!--이미지 리스트 쿼리 -->
+	<select id="fileList" resultType="FreeFileFilesVO">
+		select
+		fffno,ffno,path,filename,regdate
+		from tbl_freeFile_file
+		where ffno = #{ffno}
+	</select>
+
+	<!--이미지 보여주는 쿼리. -->
+	<select id="fileShow" resultType="FreeFileFilesVO">
+		select
+		fffno,ffno,path,filename,regdate
+		from
+		tbl_freeFile_file
+		where ffno = #{ffno}
+		and filename = #{filename}
+	</select>
+
+	<!--전체 -->
+	<delete id="fileDelete">
+		delete from
+		tbl_freeFile_file
+		where ffno = #{ffno}
+	</delete>
+
+
+	<insert id="fileInsertOne" parameterType="FreeFileFilesVO">
+		insert into
+		tbl_freeFile_file(fffno,ffno,path,filename,regdate)
+		values(nextval('seq_tbl_freeFile_file'),#{ffno} ,#{path} ,#{filename},now())
+	</insert>
+
+	<!--한개 -->
+	<delete id="fileDeleteOne">
+		delete
+		from tbl_freeFile_file
+		where ffno = #{ffno} and filename = #{filename}
+	</delete>
+
+
+
+</mapper> 

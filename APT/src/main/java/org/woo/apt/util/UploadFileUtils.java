@@ -59,11 +59,8 @@ public class UploadFileUtils {
 				downloadName = URLEncoder.encode(resorceOriName, "UTF-8");
 			}else{	//크롬
 				System.out.println("chrom");
-				downloadName = new String(resorceOriName.getBytes("UTF-8"), "ISO-8859-1");
+				downloadName = URLEncoder.encode(resorceOriName, "UTF-8");
 			}
-			
-               System.out.println(downloadName);
-               
 			headers.add("Content-Disposition", "attachment; filename=" + downloadName);
 		} catch (Exception e) {
 			e.printStackTrace();

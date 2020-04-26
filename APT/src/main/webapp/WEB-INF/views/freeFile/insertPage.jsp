@@ -13,13 +13,11 @@
 			<tr>
 				<th>제목</th>
 				<th>내용</th>
-				<th>가격</th>
 			</tr>
 			
 			<tr>
 				<td><input type="text" name="title" id="title"></td>
 				<td><input type="text" name="content" id="content"></td>
-				<td><input type="text" name="pay" id="pay"></td>
 			</tr>
 
 		</table>

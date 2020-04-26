@@ -11,23 +11,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.woo.apt.file.domain.FreeFileFilesVO;
+import org.woo.apt.file.domain.FreeFileVO;
 import org.woo.apt.file.domain.PayFileFilesVO;
 import org.woo.apt.file.domain.PayFileVO;
-import org.woo.apt.file.service.PayFileFilesService;
-import org.woo.apt.file.service.PayFileService;
+import org.woo.apt.file.service.FreeFileFilesService;
+import org.woo.apt.file.service.FreeFileService;
 import org.woo.apt.util.Paging;
 
 @Controller     
-@RequestMapping("/payFile/*")   
-public class PayFileController {
+@RequestMapping("/freeFile/*")   
+public class FreeFileController {
 	//logger.info사용 (sysout같은거다.{기본 컨트롤러에 이미 되어 있다.})
-		private static final Logger logger = LoggerFactory.getLogger(PayFileController.class);
+		private static final Logger logger = LoggerFactory.getLogger(FreeFileController.class);
 		//service 가져오기
 		@Inject
-		private PayFileService service;
+		private FreeFileService service;
 		
 		@Inject
-		private PayFileFilesService fservice;
+		private FreeFileFilesService fservice;
 		
 		//insertPage설정.(view.board.insertPage로 경로가 설정 되어 있다.)
 		//web.xmp에서 확인 가능.
@@ -36,40 +38,40 @@ public class PayFileController {
 		}
 		
 		@RequestMapping(value = "/insert", method = RequestMethod.POST)
-		public String insert(Model model, PayFileVO vo, @RequestParam("file")List<MultipartFile> file) throws Exception {
+		public String insert(Model model, FreeFileVO vo, @RequestParam("file")List<MultipartFile> file) throws Exception {
 			service.insert(vo, file);
-			return "redirect:/payFile/listPage?page=1";
+			return "redirect:/freeFile/listPage?page=1";
 		}
 		
 		//read기능 bno를 파라미터로 가져와야 한다.
 		@RequestMapping(value = "/read", method = RequestMethod.GET)
-		public void readPage(Model model, @RequestParam("pfno") int pfno) throws Exception {
-			List<PayFileFilesVO> list = fservice.fileList(pfno);
-			model.addAttribute("read", service.read(pfno));
+		public void readPage(Model model, @RequestParam("ffno") int ffno) throws Exception {
+			List<FreeFileFilesVO> list = fservice.fileList(ffno);
+			model.addAttribute("read", service.read(ffno));
 			model.addAttribute("list", list);
 			model.addAttribute("listSize", list.size());
-			model.addAttribute("vo", service.read(pfno));
+			model.addAttribute("vo", service.read(ffno));
 		}
 		
 		@RequestMapping(value = "/updatePage", method = RequestMethod.GET)
-		public void updatePage(Model model, @RequestParam("pfno") int pfno) throws Exception {
-			model.addAttribute("read", service.read(pfno));
-			List<PayFileFilesVO> list = fservice.fileList(pfno);
+		public void updatePage(Model model, @RequestParam("ffno") int ffno) throws Exception {
+			model.addAttribute("read", service.read(ffno));
+			List<FreeFileFilesVO> list = fservice.fileList(ffno);
 			model.addAttribute("list", list);
 			model.addAttribute("listSize", list.size());
-			model.addAttribute("vo", service.read(pfno));
+			model.addAttribute("vo", service.read(ffno));
 		}
 
 		@RequestMapping(value = "/update", method = RequestMethod.POST)
-		public String update(Model model, PayFileVO vo) throws Exception {
+		public String update(Model model, FreeFileVO vo) throws Exception {
 			service.update(vo);
-			return "redirect:/payFile/listPage?page=1";
+			return "redirect:/freeFile/listPage?page=1";
 		}
 		
 		@RequestMapping(value = "/delete", method = RequestMethod.POST)
-		public String delete(Model model, int pfno) throws Exception {
-			service.delete(pfno);
-			return "redirect:/payFile/listPage?page=1";
+		public String delete(Model model, int ffno) throws Exception {
+			service.delete(ffno);
+			return "redirect:/freeFile/listPage?page=1";
 
 		}
 
