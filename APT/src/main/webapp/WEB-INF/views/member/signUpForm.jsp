@@ -81,7 +81,7 @@
 					</table>
 					<p class="agreement">
 						<label><input type="checkbox"
-							id="agreement" />개인정보 약관에 대해 동의 합니다.</label> <a href="/agreement.html">약관보기</a>
+							id="agreement" />개인정보 약관에 대해 동의 합니다.</label> <a href="/agreement">약관보기</a>
 					</p>
 					<p class="noti">회원가입 시 정확한 정보를 입력하지 않는 경우 불이익이 생길 수 있습니다.</p>
 					<button type="button" class="join_btn">회원 가입</button>

@@ -1,5 +1,6 @@
 package org.woo.apt.file.controller;
 
+import java.io.File;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -30,7 +31,7 @@ public class FreeUploadController {
 	private FreeFileFilesService fservice;
 	
 	// Resource = core.io;
-	//ResponseEntity 타입은 byte로 대채 가능하지만 ResponseEntity좀더 간편하다.
+	//ResponseEntity ���엯�� byte濡� ��梨� 媛��뒫�븯吏�留� ResponseEntity醫��뜑 媛꾪렪�븯�떎.
 	@ResponseBody
 	@RequestMapping(value = "/file", method = RequestMethod.GET, produces = MediaType.APPLICATION_ATOM_XML_VALUE)
 	public ResponseEntity<Resource> file(@RequestHeader("User-Agent")String userAgent,
@@ -47,7 +48,7 @@ public class FreeUploadController {
 	}
 
 	@RequestMapping(value = "/fileDelete")
-	public String imgDelete(@RequestParam("ffno")int ffno,  @RequestParam("filename")String filename) throws Exception {
+	public String imgDelete(int page,@RequestParam("ffno")int ffno,  @RequestParam("filename")String filename) throws Exception {
 		FreeFileFilesVO vo = new FreeFileFilesVO();
 		UploadFileUtils upload = new UploadFileUtils();
 		vo.setFfno(ffno);
@@ -55,12 +56,12 @@ public class FreeUploadController {
 		String location = fservice.fileShow(vo).getPath();
 		upload.deleteFile(location, filename);
 		fservice.fileDeleteOne(vo);
-		return "redirect:/freeFile/read?ffno=" + ffno;
+		return "redirect:/freeFile/updatePage?page="+page+"&ffno=" + ffno;
 	}
 	
 	// insertImage
 		@RequestMapping(value = "/insertFile" , method = RequestMethod.POST)
-		public String insertImage(int ffno, @RequestParam("file")List<MultipartFile> file) throws Exception {
+		public String insertImage(int page,int ffno, @RequestParam("file")List<MultipartFile> file) throws Exception {
 			FreeFileFilesVO fvo = new FreeFileFilesVO();
 			fvo.setFfno(ffno);
 			System.out.println(fvo);
@@ -68,12 +69,11 @@ public class FreeUploadController {
 			for (int i = 0; i < file.size(); i++) {
 				String originalName = file.get(i).getOriginalFilename();
 				byte[] fileData = file.get(i).getBytes();
-				// 유틸시작
 				String uploadedFileName = UploadFileUtils.saveFile("C:\\freeTemp", originalName, fileData);
 				String path = "C:\\freeTemp" + uploadedFileName.substring(0, 12);
 				String saveFileName = uploadedFileName.substring(uploadedFileName.lastIndexOf("/") + 1);
 				String formatName = originalName.substring(originalName.lastIndexOf(".") + 1);
-				//확장자 null 체크
+				//�솗�옣�옄 null 泥댄겕
 				System.out.println(formatName);
 				if (formatName == null || formatName.equals("")) {
 				}else{
@@ -82,7 +82,7 @@ public class FreeUploadController {
 					fservice.fileInsertOne(fvo);
 				}
 			}
-			return "redirect:/freeFile/read?page=1&ffno=" + ffno;
+			return "redirect:/freeFile/updatePage?page="+page+"&ffno=" + ffno;
 
 		}
 

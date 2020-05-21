@@ -3,56 +3,81 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%request.setCharacterEncoding("UTF-8"); %>
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-
-
-
-	<form id="form" method="get"enctype="multipart/form-data">
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="/resources/css/common.css" />
+    <link rel="stylesheet" href="/resources/css/sub.css" />
+  </head>
+  <body>
+    <div class="wrap">
+      <%@ include file="/resources/include/header.jsp" %>
+      <div class="contents">
+      
+	  <form id="form" method="get" enctype="multipart/form-data">
 		<input type="hidden" name="ffno" id="ffno" value="${vo.ffno}">
-		<input type="hidden" id="page" value="${param.page}">
-		<table border="1">
-			<tr>
-				<th>제목</th>
-				<th>내용</th>
-			</tr>
-			
-			<tr>
-				<td><input type="text" name="title" id="title" value="${read.title }" readonly="readonly"></td>
-				<td><input type="text" name="content" id="content" value="${read.content }" readonly="readonly"></td>
-				
-			</tr>
-
-		</table>
-		<ul>
-			<c:forEach items="${list}" var="list" >
-				<li>
-				<input type="hidden" class="filename" value="${list.filename}">
-				<h5>${list.filename} </h5>
-				</li>
-			</c:forEach>
-		</ul>
-
-
-
-	     <button type="button" id="payBtn">결제</button>
-         <button type="button" id="homeBtn">홈으로</button>
-         <c:if test="${login.auth eq 1}">
-         <button type="button" id="updateBtn">수정</button>
-         <button type="button" id="deleteBtn">삭제</button>
-         </c:if>
-	</form>
-
+		<input type="hidden" id="page" value="${param.page}"> 
+        <div class="contents_inner">
+          <div class="conWrap proud_list">
+            <div class="subPage_title">
+              <h2>일반자료</h2>
+            </div>
+            <div class="viewWrap bdt2s333">
+              <h4>
+                ${read.title}<span class="docDate">${read.regdate}</span>
+              </h4>
+              <table class="viewTable6" summary="글보기">
+                <colgroup>
+                  <col width="26%" />
+                  <col width="*" />
+                </colgroup>
+                <tbody>
+                  <tr>
+                    <td colspan="2" class="viewCon">
+                      <div class="inner_view">${read.content}</div>
+                    </td>
+                  </tr>
+                
+                  <tr>
+                    <th scope="row">첨부파일</th>
+                    <c:forEach items="${list}" var="list" >
+                    <td>
+                    <input type="hidden" class="filename" value="${list.filename}">
+                       ${list.filename}
+                    </td>
+                    </c:forEach>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="bottom_buttons">
+              <button type="button" id="downBtn" class="blackBtn">다운로드</button>
+              <c:if test="${login.auth eq 1}">
+                <button type="button" id="updateBtn" class="blackBtn">수정</button>
+                <button  type="button" id="deleteBtn" class="pointBtn">삭제</button>
+              </c:if>
+                <button type="button" id="homeBtn" class="blackBtn">목록</button>
+              </div>
+            </div>
+          </div>
+          <!-- contents e -->
+        </div>
+        </form>
+      </div>
+       <%@ include file="/resources/include/footer.jsp" %>
+    </div>
+    
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
 			var form = $("#form");
+			/* $(".img").on("click", function() {
+				var src = $(this).attr("src");
+                window.location.href = src;
+			}); */
 			
-			$("#payBtn").on("click", function() {
+			$("#downBtn").on("click", function() {
 				var ffno = $("#ffno").val();
 				var filename = $(".filename").val();
 				var filenameEnc = encodeURI(filename);
@@ -60,7 +85,7 @@
 			});
 
 			$("#homeBtn").on("click", function() {
-                location.href = "/";
+                location.href = "/freeFile/listPage?page=" + $("#page").val();
 			});
 			
 			$("#deleteBtn").on("click", function() {
@@ -70,13 +95,14 @@
 			});
 			
 			$("#updateBtn").on("click", function() {
+				var page = $("#page").val();
 				var ffno = $("#ffno").val();
-                location.href = "/freeFile/updatePage?ffno="+ffno;
+                location.href = "/freeFile/updatePage?page="+page+"" + "&ffno="+ffno;
 			});
 		
 		
 		});
 	</script>
-
-</body>
+    
+  </body>
 </html>

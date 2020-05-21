@@ -36,14 +36,13 @@
                   <option value="title" ${param.sType == "title" ? "selected" : ""}>제목</option>
 				  <option value="content" ${param.sType == "content" ? "selected" : ""}>내용</option>
                   </select>
-                  <input
-                    type="text"
-                    name="what"
-                    id="what"
+                  
+                  <input type="text"
+                    name="keyword"
+                    id="keyword"
                     class="mr10 srch_input"
                     placeholder="검색어 입력"
-                    value=""
-                  />
+                    value="${param.keyword}" />
                   <a href="#none" class="btnS searchBtn"> 검색하기</a>
                 </div>
               </form>
@@ -126,10 +125,11 @@
               
             </ul>
           </div>
-          
+          <c:if test="${login.auth eq 1}">
           <div class="bottom_buttons">
             <a href="/payFile/insertPage" id="insertBtn" class="blackBtn">등록</a>
           </div>
+          </c:if>
           <!-- contents e -->
         </div>
       </div>
@@ -142,7 +142,7 @@
 <script type="text/javascript">
  $(document).ready(function(){
 	
-	$("#sBtn").on("click",function(event){
+	$(".searchBtn").on("click",function(event){
 		event.preventDefault();
 		$("#pageHidden").val(1);
 		$("#form").submit();

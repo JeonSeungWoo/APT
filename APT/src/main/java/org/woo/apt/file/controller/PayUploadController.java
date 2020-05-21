@@ -1,5 +1,6 @@
 package org.woo.apt.file.controller;
 
+import java.io.File;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -45,7 +46,7 @@ public class PayUploadController {
 	}
 
 	@RequestMapping(value = "/fileDelete")
-	public String imgDelete(@RequestParam("pfno")int pfno,  @RequestParam("filename")String filename) throws Exception {
+	public String imgDelete(int page,@RequestParam("pfno")int pfno,  @RequestParam("filename")String filename) throws Exception {
 		PayFileFilesVO vo = new PayFileFilesVO();
 		UploadFileUtils upload = new UploadFileUtils();
 		vo.setPfno(pfno);
@@ -53,25 +54,25 @@ public class PayUploadController {
 		String location = fservice.fileShow(vo).getPath();
 		upload.deleteFile(location, filename);
 		fservice.fileDeleteOne(vo);
-		return "redirect:/payFile/read?pfno=" + pfno;
+		return "redirect:/payFile/updatePage?page="+page+"&pfno=" + pfno;
 	}
 	
 	// insertImage
 		@RequestMapping(value = "/insertFile", method = RequestMethod.POST)
-		public String insertImage(int pfno, @RequestParam("file")List<MultipartFile> file) throws Exception {
+		public String insertImage(int page,int pfno, @RequestParam("file")List<MultipartFile> file) throws Exception {
 			PayFileFilesVO fvo = new PayFileFilesVO();
+			
 			fvo.setPfno(pfno);
 			System.out.println(fvo);
 
 			for (int i = 0; i < file.size(); i++) {
 				String originalName = file.get(i).getOriginalFilename();
 				byte[] fileData = file.get(i).getBytes();
-				// 유틸시작
 				String uploadedFileName = UploadFileUtils.saveFile("C:\\payTemp", originalName, fileData);
 				String path = "C:\\payTemp" + uploadedFileName.substring(0, 12);
 				String saveFileName = uploadedFileName.substring(uploadedFileName.lastIndexOf("/") + 1);
 				String formatName = originalName.substring(originalName.lastIndexOf(".") + 1);
-				//확장자 null 체크
+				//�솗�옣�옄 null 泥댄겕
 				System.out.println(formatName);
 				if (formatName == null || formatName.equals("")) {
 				}else{
@@ -80,7 +81,7 @@ public class PayUploadController {
 					fservice.fileInsertOne(fvo);
 				}
 			}
-			return "redirect:/payFile/read?page=1&pfno=" + pfno;
+			return "redirect:/payFile/updatePage?page="+page+"&pfno=" + pfno;
 
 		}
 

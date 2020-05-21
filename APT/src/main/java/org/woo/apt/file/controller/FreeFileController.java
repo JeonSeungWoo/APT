@@ -59,9 +59,9 @@ public class FreeFileController {
 		}
 
 		@RequestMapping(value = "/update", method = RequestMethod.POST)
-		public String update(Model model, FreeFileVO vo) throws Exception {
+		public String update(int page,int ffno,Model model, FreeFileVO vo) throws Exception {
 			service.update(vo);
-			return "redirect:/freeFile/listPage?page=1";
+			return "redirect:/freeFile/read?page="+page+"&ffno=" + ffno;
 		}
 		
 		@RequestMapping(value = "/delete", method = RequestMethod.POST)

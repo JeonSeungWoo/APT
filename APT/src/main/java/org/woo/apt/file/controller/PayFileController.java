@@ -20,17 +20,17 @@ import org.woo.apt.util.Paging;
 @Controller     
 @RequestMapping("/payFile/*")   
 public class PayFileController {
-	//logger.info사용 (sysout같은거다.{기본 컨트롤러에 이미 되어 있다.})
+	//logger.info�궗�슜 (sysout媛숈�嫄곕떎.{湲곕낯 而⑦듃濡ㅻ윭�뿉 �씠誘� �릺�뼱 �엳�떎.})
 		private static final Logger logger = LoggerFactory.getLogger(PayFileController.class);
-		//service 가져오기
+		//service 媛��졇�삤湲�
 		@Inject
 		private PayFileService service;
 		
 		@Inject
 		private PayFileFilesService fservice;
 		
-		//insertPage설정.(view.board.insertPage로 경로가 설정 되어 있다.)
-		//web.xmp에서 확인 가능.
+		//insertPage�꽕�젙.(view.board.insertPage濡� 寃쎈줈媛� �꽕�젙 �릺�뼱 �엳�떎.)
+		//web.xmp�뿉�꽌 �솗�씤 媛��뒫.
 		@RequestMapping(value = "/insertPage", method = RequestMethod.GET)
 		public void insertPage() throws Exception {
 		}
@@ -41,7 +41,7 @@ public class PayFileController {
 			return "redirect:/payFile/listPage?page=1";
 		}
 		
-		//read기능 bno를 파라미터로 가져와야 한다.
+		//read湲곕뒫 bno瑜� �뙆�씪誘명꽣濡� 媛��졇���빞 �븳�떎.
 		@RequestMapping(value = "/read", method = RequestMethod.GET)
 		public void readPage(Model model, @RequestParam("pfno") int pfno) throws Exception {
 			List<PayFileFilesVO> list = fservice.fileList(pfno);
@@ -61,9 +61,9 @@ public class PayFileController {
 		}
 
 		@RequestMapping(value = "/update", method = RequestMethod.POST)
-		public String update(Model model, PayFileVO vo) throws Exception {
+		public String update(int page,int pfno,Model model, PayFileVO vo) throws Exception {
 			service.update(vo);
-			return "redirect:/payFile/listPage?page=1";
+			return "redirect:/payFile/read?page="+page+"&pfno=" + pfno;
 		}
 		
 		@RequestMapping(value = "/delete", method = RequestMethod.POST)

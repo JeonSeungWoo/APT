@@ -9,7 +9,7 @@
               <ul class="bnb">
                 <li><a href="/">HOME</a></li>
                 <li>
-                  <a href="agreement.html" target="_blank" title="새창열림"
+                  <a href="/agreement" target="_blank" title="새창열림"
                     >개인정보처리방침</a
                   >
                 </li>

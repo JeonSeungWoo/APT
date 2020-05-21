@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="advice">
+	<!--게시판 영역 -->
+	<insert id="insert" parameterType="AdviceVO">
+		insert into
+        tbl_legal_advice(lno,title,content,writer,answerYN,regdate)
+        values
+        (nextval('seq_legal_advice'),#{title},#{content},#{writer},0,now())
+
+	</insert>
+
+	<select id="read" resultType="AdviceVO">
+		select * from tbl_legal_advice
+		WHERE lno = #{lno}
+	</select>
+
+	<update id="update" parameterType="AdviceVO">
+        UPDATE tbl_legal_advice
+		SET TITLE = {title},
+		CONTENT = #{content},
+		WHERE
+        lno = #{lno}
+	</update>
+
+	<delete id="delete">
+		DELETE FROM tbl_legal_advice WHERE lno = #{lno}
+	</delete>
+
+
+	<!--List -->
+	<select id="list" parameterType="Paging" resultType="AdviceVO">
+		select
+		*
+		from tbl_legal_advice
+		<if test="sType != null">
+			<if test="sType eq 'title'.toString()">
+				where title like '%'||#{keyword}||'%'
+			</if>
+			<if test="sType eq 'content'.toString()">
+				where content like '%'||#{keyword}||'%'
+			</if>
+			<if test="sType eq 'writer'.toString()">
+				where writer like '%'||#{keyword}||'%'
+			</if>
+		</if>
+		order by lno desc
+		LIMIT #{pageSize} OFFSET (#{page} - 1) * #{pageSize}
+	</select>
+
+	<select id="listCount" resultType="java.lang.Integer">
+		select count(1) from tbl_legal_advice
+		<if test="sType != null">
+			<if test="sType eq 'title'.toString()">
+				where title like '%'||#{keyword}||'%'
+			</if>
+			<if test="sType eq 'content'.toString()">
+				where content like '%'||#{keyword}||'%'
+			</if>
+			<if test="sType eq 'writer'.toString()">
+				where writer like '%'||#{keyword}||'%'
+			</if>
+		</if>
+	</select>
+
+     <!--answer  -->
+	
+
+
+</mapper> 

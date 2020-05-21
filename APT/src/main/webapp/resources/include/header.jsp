@@ -1,8 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <div class="gnb">
+
         <div class="gnb_inner">
           <a href="login.html">공지 사항</a>
-          <a href="/member/loginForm">관리사무소 Login</a>
+              <c:choose>
+                <c:when test="${login.userid == '' || login.userid eq null}">
+                    <a href="/member/loginForm">관리사무소 Login</a>                       
+                </c:when>
+                 <c:otherwise>
+                     <a href="/member/logout">Logout</a>
+                 </c:otherwise>
+              </c:choose>
+         
         </div>
       </div>
       <div class="header">
