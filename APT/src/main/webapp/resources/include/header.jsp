@@ -4,7 +4,7 @@
 <div class="gnb">
 
         <div class="gnb_inner">
-          <a href="login.html">공지 사항</a>
+          <a href="/notice/listPage?page=1">공지 사항</a>
               <c:choose>
                 <c:when test="${login.userid == '' || login.userid eq null}">
                     <a href="/member/loginForm">관리사무소 Login</a>                       

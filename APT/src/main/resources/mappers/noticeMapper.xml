@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="notice">
+	<!--게시판 영역 -->
+	<insert id="insert" parameterType="NoticeVO">
+		insert into
+        tbl_notice(nno,title,content,writer,regdate)
+        values
+        (nextval('seq_notice'),#{title},#{content},#{writer},now())
+
+	</insert>
+
+	<select id="read" resultType="NoticeVO">
+		select * from tbl_notice
+		WHERE nno = #{nno}
+	</select>
+
+	<update id="update" parameterType="NoticeVO">
+        UPDATE tbl_notice
+		SET TITLE = #{title},
+		CONTENT = #{content},
+		updatedate = #{updatedate}
+		WHERE nno = #{nno}
+	</update>
+
+	<delete id="delete">
+		DELETE FROM tbl_notice WHERE nno = #{nno}
+	</delete>
+
+
+	<!--List -->
+	<select id="list" parameterType="Paging" resultType="NoticeVO">
+		select
+		*
+		from tbl_notice
+		order by nno desc
+		LIMIT #{pageSize} OFFSET (#{page} - 1) * #{pageSize}
+	</select>
+
+	<select id="listCount" resultType="java.lang.Integer">
+		select count(1) from tbl_notice
+	</select>
+
+</mapper> 
