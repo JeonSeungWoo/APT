@@ -82,9 +82,7 @@
 			
 			$("#payBtn").on("click", function() {
 				var pfno = $("#pfno").val();
-				var filename = $(".filename").val();
-				var filenameEnc = encodeURI(filename);
-                location.href = "/payUpload/file?pfno="+ pfno+"&filename="+filenameEnc;
+                location.href = "/payUpload/file?pfno="+ pfno;
 			});
 
 			$("#homeBtn").on("click", function() {

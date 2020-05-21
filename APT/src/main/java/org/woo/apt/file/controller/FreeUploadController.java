@@ -35,14 +35,14 @@ public class FreeUploadController {
 	@ResponseBody
 	@RequestMapping(value = "/file", method = RequestMethod.GET, produces = MediaType.APPLICATION_ATOM_XML_VALUE)
 	public ResponseEntity<Resource> file(@RequestHeader("User-Agent")String userAgent,
-			@RequestParam("ffno") int ffno, @RequestParam("filename") String filename)
+			@RequestParam("ffno") int ffno)
 			throws Exception {
 		UploadFileUtils upload = new UploadFileUtils();
 		FreeFileFilesVO vo = new FreeFileFilesVO();
+		
 		vo.setFfno(ffno);
-		vo.setFilename(filename);
-		String path = fservice.fileShow(vo).getPath();
-		filename = fservice.fileShow(vo).getFilename();
+		String path = fservice.fileList(ffno).get(0).getPath();
+		String filename = fservice.fileList(ffno).get(0).getFilename();
 		ResponseEntity<Resource> result = upload.fileShow(userAgent, path, filename);
 		return result;
 	}

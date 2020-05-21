@@ -74,7 +74,7 @@
                     </a>
                   </td>
                   <td>
-                    <a href="?mode=download&amp;bkey=3600&amp;num=0">
+                    <a href="#" class="fileDown" attr-date="${list.ffno}" >
                     <span class="fs09e clr88">받기</span></a>
                   </td>
                   <td><span class="tdDate">${list.regdate}</span></td>
@@ -142,6 +142,11 @@
 		event.preventDefault();
 		$("#pageHidden").val(1);
 		$("#form").submit();
+	});
+
+	$(".fileDown").on("click",function(event){
+        var ffno = $(this).attr("attr-date");
+        location.href = "/freeUpload/file?ffno="+ ffno;
 	});
     
 

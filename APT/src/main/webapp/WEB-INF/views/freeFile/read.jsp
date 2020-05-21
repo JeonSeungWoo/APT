@@ -79,9 +79,7 @@
 			
 			$("#downBtn").on("click", function() {
 				var ffno = $("#ffno").val();
-				var filename = $(".filename").val();
-				var filenameEnc = encodeURI(filename);
-                location.href = "/freeUpload/file?ffno="+ ffno+"&filename="+filenameEnc;
+                location.href = "/freeUpload/file?ffno="+ ffno;
 			});
 
 			$("#homeBtn").on("click", function() {

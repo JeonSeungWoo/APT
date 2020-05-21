@@ -77,9 +77,9 @@
                   </td>
                   <td class="price">${list.pay}원</td>
                   <td>
-                    <a href="?mode=download&amp;bkey=3600&amp;num=0"
-                      ><span class="fs09e clr88">받기</span></a
-                    >
+                    <a href="#" class="fileDown" attr-date="${list.pfno}" >
+                      <span class="fs09e clr88">받기</span>
+                      </a>
                   </td>
                   <td><span class="tdDate">${list.regdate}</span></td>
                 </tr>
@@ -147,7 +147,11 @@
 		$("#pageHidden").val(1);
 		$("#form").submit();
 	});
-    
+
+	$(".fileDown").on("click",function(event){
+        var pfno = $(this).attr("attr-date");
+        location.href = "/payUpload/file?pfno="+ pfno;
+	});
 
 });
 

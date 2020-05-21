@@ -33,14 +33,13 @@ public class PayUploadController {
 	@ResponseBody
 	@RequestMapping(value = "/file", method = RequestMethod.GET, produces = MediaType.APPLICATION_ATOM_XML_VALUE)
 	public ResponseEntity<Resource> file(@RequestHeader("User-Agent")String userAgent,
-			@RequestParam("pfno") int pfno, @RequestParam("filename") String filename)
+			@RequestParam("pfno") int pfno)
 			throws Exception {
 		UploadFileUtils upload = new UploadFileUtils();
 		PayFileFilesVO vo = new PayFileFilesVO();
 		vo.setPfno(pfno);
-		vo.setFilename(filename);
-		String path = fservice.fileShow(vo).getPath();
-		filename = fservice.fileShow(vo).getFilename();
+		String path = fservice.fileList(pfno).get(0).getPath();
+		String filename = fservice.fileList(pfno).get(0).getFilename();
 		ResponseEntity<Resource> result = upload.fileShow(userAgent, path, filename);
 		return result;
 	}
