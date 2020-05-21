@@ -37,17 +37,14 @@
 		*
 		from tbl_legal_advice
 		<if test="auth == 3">
-		 where writer like '%'||#{keyword}||'%'
+		 where writer = #{writer}
 		</if>
-		order by lno desc
+		order by answerYN ASC, lno desc
 		LIMIT #{pageSize} OFFSET (#{page} - 1) * #{pageSize}
 	</select>
 
 	<select id="listCount" resultType="java.lang.Integer">
 		select count(1) from tbl_legal_advice
-		<if test="auth == 3">
-		 where writer like '%'||#{keyword}||'%'
-		</if>
 	</select>
 
      <!--answer  -->

@@ -15,14 +15,16 @@
      <%@ include file="/resources/include/header.jsp" %>
       <div class="contents">
       <form id="form" method="post" enctype="multipart/form-data">
+       <input type="hidden" name="sno" id="sno" value="${vo.sno}">
+       <input type="hidden" name="page" id="page" value="${param.page}">
         <div class="contents_inner">
           <div class="conWrap proud_list">
             <div class="subPage_title">
-              <h2>법률자문</h2>
+              <h2>고객센터</h2>
             </div>
             <div class="viewWrap bdt2s333">
               <h4>
-                <input type="text" name="title" id="title" placeholder="제목" />
+                <input type="text" name="title" id="title" placeholder="제목" value="${vo.title}" />
               </h4>
               <table class="viewTable6" summary="글보기">
                 <colgroup>
@@ -33,7 +35,7 @@
                   <tr>
                     <td colspan="2" class="viewCon">
                       <div class="inner_view">
-                        <textarea name="content" id="content"placeholder="내용을 입력해주세요."></textarea>
+                        <textarea name="content" id="content"placeholder="내용을 입력해주세요.">${vo.content}</textarea>
                       </div>
                     </td>
                   </tr>
@@ -42,7 +44,7 @@
               </table>
                
               <div class="bottom_buttons">
-                <button class="blackBtn" id="insertBtn">등록</button>
+               <button type="button" class="blackBtn" id="updateBtn">수정</button>
               </div>
             </div>
           </div>
@@ -58,7 +60,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 	<script type="text/javascript">
 		var form = $("#form");
-		$("#insertBtn").on("click", function() {
+		$("#updateBtn").on("click", function() {
 			
 			var title = $('#title').val();
 			var content = $('#content').val();
@@ -66,11 +68,10 @@
 				alert("데이터를 입력해 주세요.");
 				return false;
 			} else {
-				form.attr("action", "insert");
+				form.attr("action", "update");
 				form.attr("method", "POST");
 				form.submit();
 			}
-
 		});
 
 		

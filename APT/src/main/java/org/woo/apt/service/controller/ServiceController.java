@@ -1,4 +1,4 @@
-package org.woo.apt.advice.controller;
+package org.woo.apt.service.controller;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -11,72 +11,71 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.woo.apt.advice.domain.AdviceVO;
-import org.woo.apt.advice.service.AdviceService;
 import org.woo.apt.member.domain.MemberVO;
+import org.woo.apt.service.domain.ServiceVO;
+import org.woo.apt.service.service.ServiceService;
 import org.woo.apt.util.Paging;
 
 @Controller     
-@RequestMapping("/advice/*")  
-public class AdviceController {
+@RequestMapping("/service/*")  
+public class ServiceController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(AdviceController.class);
+	private static final Logger logger = LoggerFactory.getLogger(ServiceController.class);
 	
 	@Inject
-	private AdviceService service;
+	private ServiceService service;
 	
 	@RequestMapping(value = "/insertPage", method = RequestMethod.GET)
 	public void insertPage() throws Exception {
 	}
 	
 	@RequestMapping(value = "/insert", method = RequestMethod.POST)
-	public String insert(HttpServletRequest request,Model model, AdviceVO vo) throws Exception {
+	public String insert(HttpServletRequest request,Model model, ServiceVO vo) throws Exception {
 		HttpSession session= request.getSession();
 		MemberVO memberVO = (MemberVO)session.getAttribute("login");
 		vo.setWriter(memberVO.getUserid());
 		service.insert(vo);
-		return "redirect:/advice/listPage?page=1";
+		return "redirect:/service/listPage?page=1";
 	}
 	
 	@RequestMapping(value = "/read", method = RequestMethod.GET)
-	public void readPage(Model model, @RequestParam("lno") int lno) throws Exception {
+	public void readPage(Model model, @RequestParam("sno") int sno) throws Exception {
 		
-		model.addAttribute("vo", service.read(lno));
+		model.addAttribute("vo", service.read(sno));
 	}
 	
 	@RequestMapping(value = "/updatePage", method = RequestMethod.GET)
-	public void updatePage(Model model, @RequestParam("lno") int lno) throws Exception {
-		model.addAttribute("vo", service.read(lno));
+	public void updatePage(Model model, @RequestParam("sno") int sno) throws Exception {
+		model.addAttribute("vo", service.read(sno));
 	}
 
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public String update(int page,int lno,Model model, AdviceVO vo) throws Exception {
+	public String update(int page,int sno,Model model, ServiceVO vo) throws Exception {
 		service.update(vo);
-		return "redirect:/advice/read?page="+page+"&lno=" + lno;
+		return "redirect:/service/read?page="+page+"&sno=" + sno;
 	}
 	
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
-	public String delete(Model model, int lno) throws Exception {
-		service.delete(lno);
-		return "redirect:/advice/listPage?page=1";
+	public String delete(Model model, int sno) throws Exception {
+		service.delete(sno);
+		return "redirect:/service/listPage?page=1";
 
 	}
 
 	@RequestMapping(value = "/listPage", method = RequestMethod.GET)
-	public void listPage(Model model,int page,Paging paging) throws Exception {
-		                                                                                                                                                        
+	public void listPage(Model model,int page,Paging paging) throws Exception {                                                                                                     
 		model.addAttribute("list",service.list(paging));
 		model.addAttribute("Paging", new Paging(page, service.listCount()));
 	}
 
 	
 	@RequestMapping(value = "/answerUpdate", method = RequestMethod.POST)
-	public String answerUpdate(HttpServletRequest request,int page,int lno,Model model, AdviceVO vo) throws Exception {
+	public String answerUpdate(HttpServletRequest request,int page,int sno,Model model, ServiceVO vo) throws Exception {
 		HttpSession session= request.getSession();
 		MemberVO memberVO = (MemberVO)session.getAttribute("login");
 		vo.setRespondent(memberVO.getUserid());
 		service.answerUpdate(vo);
-		return "redirect:/advice/read?page="+page+"&lno=" + lno;
+		return "redirect:/service/read?page="+page+"&sno=" + sno;
 	}
 	
 	

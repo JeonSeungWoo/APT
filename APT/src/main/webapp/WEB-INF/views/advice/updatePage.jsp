@@ -20,7 +20,7 @@
         <div class="contents_inner">
           <div class="conWrap proud_list">
             <div class="subPage_title">
-              <h2>일반자료</h2>
+              <h2>법률자문</h2>
             </div>
             <div class="viewWrap bdt2s333">
               <h4>

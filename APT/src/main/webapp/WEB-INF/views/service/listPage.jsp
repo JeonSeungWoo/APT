@@ -20,7 +20,7 @@
         <div class="contents_inner">
           <div class="conWrap proud_list">
             <div class="subPage_title">
-              <h2>법률자문</h2>
+              <h2>고객센터</h2>
             </div>
             <input id="pageHidden" type="hidden" name="page" value="${param.page}">
             <input id="auth" type="hidden" name="auth" value="${login.auth}">
@@ -41,9 +41,9 @@
                 </tr>
                  <c:forEach items="${list}" var="list">
                 <tr>
-                  <td><span class="tdNum">${list.lno}</span></td>
+                  <td><span class="tdNum">${list.sno}</span></td>
                   <td class="listSubject">
-                   <a href="/advice/read?page=${param.page}&lno=${list.lno}" class="tableSubject">
+                   <a href="/service/read?page=${param.page}&sno=${list.sno}" class="tableSubject">
                       ${list.title}
                     </a>
                   </td>
@@ -103,7 +103,7 @@
           </div>
           <c:if test="${login.userid ne null}">
            <div class="bottom_buttons">
-           <a href="/advice/insertPage" id="insertBtn" class="blackBtn">등록</a>
+           <a href="/service/insertPage" id="insertBtn" class="blackBtn">등록</a>
            </div>
           </c:if>
            

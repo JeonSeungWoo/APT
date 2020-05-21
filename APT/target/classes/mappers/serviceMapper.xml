@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="service">
+	<!--게시판 영역 -->
+	<insert id="insert" parameterType="ServiceVO">
+		insert into
+        tbl_service(sno,title,content,writer,answerYN,regdate)
+        values
+        (nextval('seq_service'),#{title},#{content},#{writer},0,now())
+
+	</insert>
+
+	<select id="read" resultType="ServiceVO">
+		select * from tbl_service
+		WHERE sno = #{sno}
+	</select>
+
+	<update id="update" parameterType="ServiceVO">
+        UPDATE tbl_service
+		SET TITLE = #{title},
+		CONTENT = #{content},
+		updatedate = #{updatedate}
+		WHERE
+        sno = #{sno}
+	</update>
+
+	<delete id="delete">
+		DELETE FROM tbl_service WHERE sno = #{sno}
+	</delete>
+
+
+	<!--List -->
+	<select id="list" parameterType="Paging" resultType="ServiceVO">
+		select
+		*
+		from tbl_service
+		order by answerYN ASC, sno desc
+		LIMIT #{pageSize} OFFSET (#{page} - 1) * #{pageSize}
+	</select>
+
+	<select id="listCount" resultType="java.lang.Integer">
+		select count(1) from tbl_service
+	</select>
+
+     <!--answer  -->
+     <update id="answerUpdate" parameterType="ServiceVO">
+        UPDATE tbl_service
+		SET answer = #{answer},
+		answerYN = 1,
+		respondent = #{respondent}
+		WHERE
+        sno = #{sno}
+	</update>
+
+
+</mapper> 

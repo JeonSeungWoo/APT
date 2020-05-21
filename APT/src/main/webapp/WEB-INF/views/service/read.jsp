@@ -16,12 +16,12 @@
        <%@ include file="/resources/include/header.jsp" %>
       <div class="contents">
       <form id="form" method="POST">
-        <input type="hidden" name="lno" id="lno" value="${vo.lno}">
+        <input type="hidden" name="sno" id="sno" value="${vo.sno}">
 		<input type="hidden" name="page" id="page" value="${param.page}"> 
         <div class="contents_inner">
           <div class="conWrap proud_list">
             <div class="subPage_title">
-              <h2>법률자문</h2>
+              <h2>고객센터</h2>
             </div>
             <div class="viewWrap bdt2s333">
                <h4>
@@ -89,7 +89,7 @@
 			var form = $("#form");
 
 			$("#homeBtn").on("click", function() {
-                location.href = "/advice/listPage?page=" + $("#page").val();
+                location.href = "/service/listPage?page=" + $("#page").val();
 			});
 			
 			$("#deleteBtn").on("click", function() {
@@ -100,8 +100,8 @@
 			
 			$("#updateBtn").on("click", function() {
 				var page = $("#page").val();
-				var lno = $("#lno").val();
-                location.href = "/advice/updatePage?page="+page+""+"&lno="+lno;
+				var sno = $("#sno").val();
+                location.href = "/service/updatePage?page="+page+""+"&sno="+sno;
 			});
 			
 
