@@ -1,4 +1,4 @@
-//유료
+
 create table tbl_payFile(
 pfno int PRIMARY key,
 title varchar(50) not null,
@@ -21,7 +21,9 @@ updatedate varchar(50)
 );
 
 CREATE SEQUENCE seq_tbl_payFile_file START 1;
-//무료
+
+
+
 create table tbl_freeFile(
 ffno int PRIMARY key,	
 title varchar(50) not null,

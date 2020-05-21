@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.woo.apt.file.domain.FreeFileFilesVO;
 import org.woo.apt.file.domain.FreeFileVO;
-import org.woo.apt.file.domain.PayFileFilesVO;
-import org.woo.apt.file.domain.PayFileVO;
 import org.woo.apt.file.service.FreeFileFilesService;
 import org.woo.apt.file.service.FreeFileService;
 import org.woo.apt.util.Paging;
@@ -22,17 +20,16 @@ import org.woo.apt.util.Paging;
 @Controller     
 @RequestMapping("/freeFile/*")   
 public class FreeFileController {
-	//logger.info사용 (sysout같은거다.{기본 컨트롤러에 이미 되어 있다.})
+
 		private static final Logger logger = LoggerFactory.getLogger(FreeFileController.class);
-		//service 가져오기
+		
 		@Inject
 		private FreeFileService service;
 		
 		@Inject
 		private FreeFileFilesService fservice;
 		
-		//insertPage설정.(view.board.insertPage로 경로가 설정 되어 있다.)
-		//web.xmp에서 확인 가능.
+		
 		@RequestMapping(value = "/insertPage", method = RequestMethod.GET)
 		public void insertPage() throws Exception {
 		}
@@ -43,7 +40,6 @@ public class FreeFileController {
 			return "redirect:/freeFile/listPage?page=1";
 		}
 		
-		//read기능 bno를 파라미터로 가져와야 한다.
 		@RequestMapping(value = "/read", method = RequestMethod.GET)
 		public void readPage(Model model, @RequestParam("ffno") int ffno) throws Exception {
 			List<FreeFileFilesVO> list = fservice.fileList(ffno);

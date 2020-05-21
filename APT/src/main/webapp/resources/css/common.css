@@ -1,0 +1,208 @@
+@charset "utf-8";
+body,
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+th,
+td,
+button {
+  margin: 0;
+  padding: 0;
+}
+li {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+}
+fieldset,
+img {
+  border: 0 none;
+}
+body {
+  padding: env(safe-area-inset-top) env(safe-area-inset-right)
+    env(safe-area-inset-bottom) env(safe-area-inset-left);
+  font-size: 10px;
+}
+body,
+th,
+td,
+input,
+select,
+textarea,
+button {
+  font-family: "애플 SD 산돌고딕 Neo", "Apple SD Gothic Neo", "Spoqa Han Sans",
+    "Noto Sans", "Malgun Gothic", "맑은 고딕", sans-serif;
+}
+img {
+  display: block;
+}
+table,
+th,
+td {
+  border-collapse: collapse;
+  word-break: break-all;
+  border-spacing: 0;
+}
+
+.wrap {
+  position: relative;
+  min-height: 100vh;
+  overflow-x: hidden;
+  padding-bottom: 160px;
+  box-sizing: border-box;
+}
+.gnb {
+  background: #313131;
+}
+.gnb .gnb_inner {
+  width: 1080px;
+  margin: 0 auto;
+  text-align: right;
+}
+.gnb .gnb_inner button,
+.gnb .gnb_inner a {
+  display: inline-block;
+  padding-left: 25px;
+  padding-right: 25px;
+  height: 40px;
+  line-height: 40px;
+  font-size: 1.1em;
+  letter-spacing: -0.01em;
+  font-weight: 600;
+  color: #ddd;
+  background-color: transparent;
+  border: none;
+  border-left: 1px solid #434343;
+}
+
+.gnb .gnb_inner button:last-child,
+.gnb .gnb_inner a:last-child {
+  border-right: 1px solid #434343;
+}
+
+.header {
+  border-bottom: 1px solid #dbdbdb;
+}
+.header_inner {
+  width: 1080px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+.header .logo {
+  width: 125px;
+  float: left;
+  margin-top: 8px;
+}
+.header .logo img {
+  width: 100%;
+}
+.header .lnb_nav {
+  float: right;
+}
+.lnb_nav {
+  overflow: hidden;
+}
+.lnb_nav li {
+  float: left;
+}
+.lnb_nav li a {
+  position: relative;
+  display: block;
+  padding-left: 36px;
+  padding-right: 36px;
+  height: 100px;
+  line-height: 100px;
+  letter-spacing: -0em;
+  font-size: 1.7em;
+  font-weight: 500;
+  color: #222;
+}
+.lnb_nav li a:hover {
+  color: #06215c;
+}
+.lnb_nav li a:hover::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 5px;
+  background: #06215c;
+}
+
+.footer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding-top: 40px;
+  width: 100%;
+  height: 120px;
+  background: #292c31;
+}
+.footer_inner {
+  margin: 0 auto;
+  width: 1100px;
+}
+.bottomLogo {
+  float: left;
+  width: 19%;
+  height: 100px;
+}
+.bottomLogo img {
+  margin-top: 0;
+  width: 95px;
+}
+.footerInfo {
+  float: left;
+  width: 81%;
+}
+.footerInfo li {
+  float: left;
+  margin-right: 15px;
+  color: #999;
+  font-family: "Malgun Gothic";
+  font-size: 1.2em;
+  letter-spacing: -0.01em;
+}
+.footerInfo > li:first-child {
+  margin-bottom: 28px;
+  width: 100%;
+}
+.bnb li {
+  float: left;
+  margin-right: 20px;
+}
+.bnb li a {
+  position: relative;
+  padding-right: 20px;
+  font-size: 0.9em;
+  font-weight: 600;
+  color: #ddd;
+}
+.bnb li a::after {
+  position: absolute;
+  content: "";
+  top: 2px;
+  right: 0;
+  width: 1px;
+  height: 10px;
+  background: rgba(221, 221, 221, 0.5);
+}
+.bnb li:last-child a::after {
+  display: none;
+}

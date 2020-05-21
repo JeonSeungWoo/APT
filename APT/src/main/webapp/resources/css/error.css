@@ -1,0 +1,40 @@
+@charset "utf-8";
+
+.error_wrap {
+  padding-top: 160px;
+  text-align: center;
+  font-size: 18px;
+  color: #444444;
+}
+.error_wrap p {
+  line-height: 1.5;
+}
+.error_icon {
+  display: inline-block;
+  position: relative;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: solid 3px #ffe3d5;
+  margin-bottom: 15px;
+}
+.error_icon::after,
+.error_icon::before {
+  content: "";
+  position: absolute;
+  width: 4px;
+  height: 32px;
+  background: #ff5503;
+  top: 12px;
+  left: 26px;
+}
+.error_icon::after {
+  transform: rotate(45deg);
+}
+.error_icon::before {
+  transform: rotate(-45deg);
+}
+.error_message {
+  font-size: 40px;
+  font-weight: bold;
+}

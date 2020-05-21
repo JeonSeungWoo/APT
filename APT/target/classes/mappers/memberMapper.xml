@@ -15,10 +15,10 @@
 
 	<insert id="signUp">
 		insert into
-		tbl_member(mno,userid,pw,name,email,phone,auth,interlock_type,regdate)
+		tbl_member(mno,userid,pw,name,phone,auth,apartment,roadnameCode,address,address_detail,interlock_type,regdate)
 		values
-		(nextval('seq_tbl_member'),#{userid},#{pw},#{name},#{email}
-		,#{phone},3,'일반',now());
+		(nextval('seq_tbl_member'),#{userid},#{pw},#{name}
+		,#{phone},3,#{apartment},#{roadnameCode},#{address},#{address_detail},'일반',now());
 	</insert>
 
 </mapper> 
