@@ -1,11 +1,11 @@
-package org.woo.apt.advice.dao;
+package org.woo.apt.advice.service;
 
 import java.util.List;
 
 import org.woo.apt.advice.domain.AdviceVO;
 import org.woo.apt.util.Paging;
 
-public interface AdviceDAO {
+public interface AdviceService {
 	public void insert(AdviceVO vo) throws Exception;
 	public AdviceVO read(int lno) throws Exception;
 	public void update(AdviceVO vo) throws Exception;

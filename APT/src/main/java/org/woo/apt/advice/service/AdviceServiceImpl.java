@@ -1,56 +1,61 @@
-package org.woo.apt.advice.dao;
+package org.woo.apt.advice.service;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
-import org.apache.ibatis.session.SqlSession;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
+import org.woo.apt.advice.dao.AdviceDAO;
 import org.woo.apt.advice.domain.AdviceVO;
 import org.woo.apt.util.Paging;
 
-@Repository
-public class AdviceDAOImpl implements AdviceDAO{
+@Service
+public class AdviceServiceImpl implements AdviceService{
 
 	@Inject
-	private SqlSession session;
-	
-	private String name = "advice.";
-	
+	private AdviceDAO dao;
+
 	@Override
 	public void insert(AdviceVO vo) throws Exception {
-		session.insert(name+"insert",vo);
+		dao.insert(vo);
+		
 	}
 
 	@Override
 	public AdviceVO read(int lno) throws Exception {
-		return session.selectOne(name+"read",lno);
+		
+		return dao.read(lno);
 	}
 
 	@Override
 	public void update(AdviceVO vo) throws Exception {
-		session.update(name+"update",vo);
+		// TODO Auto-generated method stub
+		dao.update(vo);
 	}
 
 	@Override
 	public void delete(int lno) throws Exception {
-		session.delete(name+"delete",lno);
+		dao.delete(lno);
+		
 	}
 
 	@Override
 	public List<AdviceVO> list(Paging paging) throws Exception {
-		return session.selectList(name + "list",paging);
+		// TODO Auto-generated method stub
+		return dao.list(paging);
 	}
 
 	@Override
 	public int listCount() throws Exception {
-		return session.selectOne(name+"listCount");
+		// TODO Auto-generated method stub
+		return dao.listCount();
 	}
 
 	@Override
 	public void answerUpdate(AdviceVO vo) throws Exception {
-		session.update(name+"answerUpdate",vo);
-		
+		// TODO Auto-generated method stub
+		dao.answerUpdate(vo);
 	}
-
+	
+	
 }

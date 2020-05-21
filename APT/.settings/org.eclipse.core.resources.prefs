@@ -4,3 +4,4 @@ encoding//src/main/java/org/woo/apt/file/controller/FreeUploadController.java=UT
 encoding//src/main/java/org/woo/apt/file/controller/PayFileController.java=UTF-8
 encoding//src/main/java/org/woo/apt/file/controller/PayUploadController.java=UTF-8
 encoding//src/main/java/org/woo/apt/file/service/PayFileFilesService.java=UTF-8
+encoding//src/main/java/org/woo/apt/util/Paging.java=UTF-8

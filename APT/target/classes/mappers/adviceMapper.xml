@@ -19,8 +19,9 @@
 
 	<update id="update" parameterType="AdviceVO">
         UPDATE tbl_legal_advice
-		SET TITLE = {title},
+		SET TITLE = #{title},
 		CONTENT = #{content},
+		updatedate = #{updatedate}
 		WHERE
         lno = #{lno}
 	</update>
@@ -35,16 +36,8 @@
 		select
 		*
 		from tbl_legal_advice
-		<if test="sType != null">
-			<if test="sType eq 'title'.toString()">
-				where title like '%'||#{keyword}||'%'
-			</if>
-			<if test="sType eq 'content'.toString()">
-				where content like '%'||#{keyword}||'%'
-			</if>
-			<if test="sType eq 'writer'.toString()">
-				where writer like '%'||#{keyword}||'%'
-			</if>
+		<if test="auth == 3">
+		 where writer like '%'||#{keyword}||'%'
 		</if>
 		order by lno desc
 		LIMIT #{pageSize} OFFSET (#{page} - 1) * #{pageSize}
@@ -52,21 +45,20 @@
 
 	<select id="listCount" resultType="java.lang.Integer">
 		select count(1) from tbl_legal_advice
-		<if test="sType != null">
-			<if test="sType eq 'title'.toString()">
-				where title like '%'||#{keyword}||'%'
-			</if>
-			<if test="sType eq 'content'.toString()">
-				where content like '%'||#{keyword}||'%'
-			</if>
-			<if test="sType eq 'writer'.toString()">
-				where writer like '%'||#{keyword}||'%'
-			</if>
+		<if test="auth == 3">
+		 where writer like '%'||#{keyword}||'%'
 		</if>
 	</select>
 
      <!--answer  -->
-	
+     <update id="answerUpdate" parameterType="AdviceVO">
+        UPDATE tbl_legal_advice
+		SET answer = #{answer},
+		answerYN = 1,
+		respondent = #{respondent}
+		WHERE
+        lno = #{lno}
+	</update>
 
 
 </mapper> 

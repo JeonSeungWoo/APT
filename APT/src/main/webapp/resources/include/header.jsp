@@ -26,7 +26,7 @@
           <div class="lnb">
             <ul class="lnb_nav">
               <li><a href="/payFile/listPage?page=1">안건정리</a></li>
-              <li><a href="">법률자문</a></li>
+              <li><a href="/advice/listPage?page=1">법률자문</a></li>
               <li><a href="/freeFile/listPage?page=1">일반자료</a></li>
               <li><a href="/customerService_list.html">고객센터</a></li>
             </ul>

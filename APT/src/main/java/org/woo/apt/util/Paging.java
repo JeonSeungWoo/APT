@@ -1,48 +1,50 @@
 package org.woo.apt.util;
 
 public class Paging {
-	private boolean prev; //이전
-	private boolean next; //다음
-	private int startPage; //시작 페이지
-	private int endPage; //끝 페이지
-	private int totalPage; //전체 페이지
-	private int page; //페이지 번호
-    private int pageSize = 10; //페이지 크기
+	private boolean prev; //�씠�쟾
+	private boolean next; //�떎�쓬
+	private int startPage; //�떆�옉 �럹�씠吏�
+	private int endPage; //�걹 �럹�씠吏�
+	private int totalPage; //�쟾泥� �럹�씠吏�
+	private int page; //�럹�씠吏� 踰덊샇
+    private int pageSize = 10; //�럹�씠吏� �겕湲�
     
-    //검색기능을 사용할 때만.
-	private String keyword; //키워드
-	private String sType; //검색 타입.
+    //寃��깋湲곕뒫�쓣 �궗�슜�븷 �븣留�.
+	private String keyword; //�궎�썙�뱶
+	private String sType; //寃��깋 ���엯.
+	
+	private String auth;
 	
 	public Paging() {
 		
 	}
 	
-	//페이지와 전체 페이지를 가져온다.
+	//�럹�씠吏��� �쟾泥� �럹�씠吏�瑜� 媛��졇�삩�떎.
 	public Paging(int page,int totalPage) {
 		this.totalPage = totalPage;
 		this.page = page;
 		calcPage();
 	}
 
-	//페이징 처리.
+	//�럹�씠吏� 泥섎━.
 	private void calcPage() {
-		//페이지가 만약 0보다 작을때 페이지는 무조건 1페이지다.
+		//�럹�씠吏�媛� 留뚯빟 0蹂대떎 �옉�쓣�븣 �럹�씠吏��뒗 臾댁“嫄� 1�럹�씠吏��떎.
 //		if (page <= 0) {
 //			page = 1;
 //		}
 //		page = ( page - 1 ) * pageSize;
 		
-		//올림.(0.1~0.9 = 1*10 ,1.1~1.9 = 2*10)
+		//�삱由�.(0.1~0.9 = 1*10 ,1.1~1.9 = 2*10)
 		int tempEnd = (int)(Math.ceil(page/10.0) * 10);
-		//시작페이지 
+		//�떆�옉�럹�씠吏� 
 		startPage = tempEnd -9;
 		
-		//이전 클릭시 (페이지가 1일때는 prev가 보이면 안된다.)
+		//�씠�쟾 �겢由��떆 (�럹�씠吏�媛� 1�씪�븣�뒗 prev媛� 蹂댁씠硫� �븞�맂�떎.)
 		prev = startPage == 1 ? false : true;
-		//끝나는 페이지 설정. 완전히 마지막 페이지.
+		//�걹�굹�뒗 �럹�씠吏� �꽕�젙. �셿�쟾�엳 留덉�留� �럹�씠吏�.
 		if(tempEnd * pageSize >= totalPage){
 			endPage = (int)(Math.ceil(totalPage/pageSize)+1);
-			//완전히 마지막에서는 next가 보이면 안된다.
+			//�셿�쟾�엳 留덉�留됱뿉�꽌�뒗 next媛� 蹂댁씠硫� �븞�맂�떎.
 			next = false;
 		}else{
 			endPage = tempEnd;
@@ -52,6 +54,14 @@ public class Paging {
 
 	
 	
+	public String getAuth() {
+		return auth;
+	}
+
+	public void setAuth(String auth) {
+		this.auth = auth;
+	}
+
 	public int getPageSize() {
 		return pageSize;
 	}
@@ -128,6 +138,8 @@ public class Paging {
 	public String toString() {
 		return "Paging [prev=" + prev + ", next=" + next + ", startPage=" + startPage + ", endPage=" + endPage
 				+ ", totalPage=" + totalPage + ", page=" + page + ", pageSize=" + pageSize + ", keyword=" + keyword
-				+ ", sType=" + sType + "]";
+				+ ", sType=" + sType + ", auth=" + auth + "]";
 	}
+
+	
 }
