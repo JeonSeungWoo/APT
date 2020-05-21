@@ -56,6 +56,20 @@
 		WHERE
         lno = #{lno}
 	</update>
+	
+	<!-- HomeList -->
+	<select id="homeList" resultType="AdviceVO">
+		select
+		*
+		from tbl_legal_advice
+		<if test="auth == 3">
+		 where writer = #{writer}
+		</if>
+		order by answerYN ASC, lno desc
+		LIMIT 3 OFFSET 0
+	</select>
+	
+
 
 
 </mapper> 

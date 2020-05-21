@@ -129,9 +129,9 @@
               <div class="box_header">공지사항</div>
               <div class="box_content">
                 <ul class="">
-                  <li><a href="">공지 블라블라 1...</a></li>
-                  <li><a href="">공지 블라블라 2...</a></li>
-                  <li><a href="">공지 블라블라 3...</a></li>
+                <c:forEach items="${noticeList}" var="list">
+                  <li><a href="/notice/read?page=1&nno=${list.nno}">${list.title}</a></li>
+                 </c:forEach>
                 </ul>
               </div>
             </div>
@@ -139,8 +139,9 @@
               <div class="box_header">안건정리</div>
               <div class="box_content">
                 <ul class="">
-                  <li><a href="">안건정리 안건정리 안건정리....</a></li>
-                  <li><a href="">블라블라블라....</a></li>
+                 <c:forEach items="${payList}" var="list">
+                  <li><a href="/payFile/read?page=1&pfno=${list.pfno}">${list.title}</a></li>
+                 </c:forEach>
                 </ul>
               </div>
             </div>
@@ -148,11 +149,9 @@
               <div class="box_header">법률자문</div>
               <div class="box_content">
                 <ul class="">
-                  <li><a href="">블라블라블라....</a></li>
-                  <li>
-                    <a href="">리스트 내용 리스트 내용 리스트 내용2...</a>
-                  </li>
-                  <li><a href="">법률자문 법률자문 블라블라블라....</a></li>
+                  <c:forEach items="${adviceList}" var="list">
+                  <li><a href="/advice/read?page=1&lno=${list.lno}">${list.title}</a></li>
+                 </c:forEach>
                 </ul>
               </div>
             </div>
@@ -160,11 +159,9 @@
               <div class="box_header">일반자료</div>
               <div class="box_content">
                 <ul class="">
-                  <li><a href="">일반 자료 리스트가 보이게 하자....</a></li>
-                  <li><a href="">일반 자료 리스트가 보여요...</a></li>
-                  <li>
-                    <a href="">리스트 내용 리스트 내용 리스트 내용2...</a>
-                  </li>
+                  <c:forEach items="${freeList}" var="list">
+                  <li><a href="/freeFile/read?page=1&ffno=${list.ffno}">${list.title}</a></li>
+                 </c:forEach>
                 </ul>
               </div>
             </div>
@@ -173,11 +170,11 @@
                 원하시는 자료가 없으신가요? <br />회원가입 후 고객센터를 통해
                 자료를 <br />요청해주세요.
               </p>
-              <a href="" class="">자료요청 하기</a>
+              <a href="/service/insertPage" class="">자료요청 하기</a>
             </div>
             <div class="box box6 sm_box">
               <p>다양한 서비스를 사용을 위해 <br />회원가입을 해주세요.</p>
-              <a href="" class="">회원가입하기</a>
+              <a href="/member/signUpForm" class="">회원가입하기</a>
             </div>
           </div>
         </div>

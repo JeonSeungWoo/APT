@@ -59,6 +59,14 @@
 		</if>
 	</select>
 
+	<!-- HomeList -->
+	<select id="homeList" resultType="FreeFileVO">
+		select
+		*
+		from tbl_freeFile
+		order by ffno desc
+		LIMIT 3 OFFSET 0
+	</select>
 	<!-- 이미지 영역 -->
 
 	<insert parameterType="FreeFileFilesVO" id="fileInsert">

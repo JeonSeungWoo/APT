@@ -46,6 +46,11 @@ public class FreeFileDAOImpl implements FreeFileDAO{
 	@Override
 	public int listCount() throws Exception {
 		return session.selectOne(name+"listCount");
+	}
+
+	@Override
+	public List<FreeFileVO> homeList() throws Exception {
+		return session.selectList(name + "homeList");
 	}	
 	
 	

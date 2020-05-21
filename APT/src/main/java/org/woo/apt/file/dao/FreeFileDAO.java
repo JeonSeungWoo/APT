@@ -12,4 +12,5 @@ public interface FreeFileDAO {
 		public void delete(int pfno) throws Exception;
 		public List<FreeFileVO>list(Paging paging)throws Exception;
 		public int listCount()throws Exception;
+		public List<FreeFileVO>homeList()throws Exception;
 }

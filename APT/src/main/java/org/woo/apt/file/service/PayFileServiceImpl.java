@@ -31,19 +31,19 @@ public class PayFileServiceImpl implements PayFileService {
 	@Transactional
 	@Override
 	public void insert(PayFileVO vo, List<MultipartFile> file) throws Exception {
-		// 이미지를 추가.
+		// �씠誘몄�瑜� 異붽�.
 
 		dao.insert(vo);
 
 		for (int i = 0; i < file.size(); i++) {
 			String originalName = file.get(i).getOriginalFilename();
 			byte[] fileData = file.get(i).getBytes();
-			// 유틸시작
+			// �쑀�떥�떆�옉
 			String uploadedFileName = UploadFileUtils.saveFile("C:"+File.separator+"payTemp", originalName, fileData);
 			String path = "C:"+File.separator+"payTemp" + uploadedFileName.substring(0, 12);
 			String saveFileName = uploadedFileName.substring(uploadedFileName.lastIndexOf("/") + 1);
 			String formatName = originalName.substring(originalName.lastIndexOf(".") + 1);
-			//확장자 null 체크
+			//�솗�옣�옄 null 泥댄겕
 			if (formatName == null || formatName.equals("")) {
 			}else{
 				PayFileFilesVO fvo = new PayFileFilesVO();
@@ -71,7 +71,7 @@ public class PayFileServiceImpl implements PayFileService {
         String location = "";
 		String fileName = "";	
 		UploadFileUtils util =  new UploadFileUtils();
-		//for문 스타트
+		//for臾� �뒪���듃
 		for (int i = 0; i < list.size(); i++) {
 		location = list.get(i).getPath();
 		fileName = list.get(i).getFilename();
@@ -89,6 +89,12 @@ public class PayFileServiceImpl implements PayFileService {
 	@Override
 	public int listCount() throws Exception {
 		return dao.listCount();
+	}
+
+	@Override
+	public List<PayFileVO> homeList() throws Exception {
+		// TODO Auto-generated method stub
+		return dao.homeList();
 	}
 
 }

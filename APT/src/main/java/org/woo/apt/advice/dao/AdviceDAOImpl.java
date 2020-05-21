@@ -53,4 +53,9 @@ public class AdviceDAOImpl implements AdviceDAO{
 		
 	}
 
+	@Override
+	public List<AdviceVO> homeList() throws Exception {
+		return session.selectList(name + "homeList");
+	}
+
 }

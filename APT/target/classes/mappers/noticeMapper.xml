@@ -42,5 +42,14 @@
 	<select id="listCount" resultType="java.lang.Integer">
 		select count(1) from tbl_notice
 	</select>
+	
+	<!-- HomeList -->
+	<select id="homeList" resultType="NoticeVO">
+		select
+		*
+		from tbl_notice
+		order by nno desc
+		LIMIT 3 OFFSET 0
+	</select>
 
 </mapper> 

@@ -51,5 +51,10 @@ public class NoticeServiceImpl implements NoticeService{
 		return dao.listCount();
 	}
 
+	@Override
+	public List<NoticeVO> homeList() throws Exception {
+		return dao.homeList();
+	}
+
 	
 }

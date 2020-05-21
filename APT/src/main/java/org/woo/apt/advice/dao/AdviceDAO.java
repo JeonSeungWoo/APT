@@ -13,4 +13,6 @@ public interface AdviceDAO {
 	public List<AdviceVO>list(Paging paging)throws Exception;
 	public int listCount()throws Exception;
 	public void answerUpdate(AdviceVO vo) throws Exception;
+	public List<AdviceVO>homeList()throws Exception;
+	
 }

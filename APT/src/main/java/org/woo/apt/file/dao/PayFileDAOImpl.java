@@ -48,4 +48,9 @@ public class PayFileDAOImpl implements PayFileDAO{
 		return session.selectOne(name+"listCount");
 	}
 
+	@Override
+	public List<PayFileVO> homeList() throws Exception {
+		return session.selectList(name + "homeList");
+	}
+
 }

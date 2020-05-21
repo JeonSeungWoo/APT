@@ -56,6 +56,12 @@ public class AdviceServiceImpl implements AdviceService{
 		// TODO Auto-generated method stub
 		dao.answerUpdate(vo);
 	}
+
+	@Override
+	public List<AdviceVO> homeList() throws Exception {
+		// TODO Auto-generated method stub
+		return dao.homeList();
+	}
 	
 	
 }

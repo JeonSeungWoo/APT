@@ -12,4 +12,5 @@ public interface NoticeService {
 	public void delete(int nno) throws Exception;
 	public List<NoticeVO>list(Paging paging)throws Exception;
 	public int listCount()throws Exception;
+	public List<NoticeVO>homeList()throws Exception;
 }

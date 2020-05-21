@@ -59,6 +59,15 @@
 			</if>
 		</if>
 	</select>
+	
+	<!-- HomeList -->
+	<select id="homeList" resultType="PayFileVO">
+		select
+		*
+		from tbl_payFile
+		order by pfno desc
+		LIMIT 3 OFFSET 0
+	</select>
 
 	<!-- 이미지 영역 -->
 

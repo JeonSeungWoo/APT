@@ -13,4 +13,5 @@ public interface FreeFileService {
 	public void delete(int ffno) throws Exception;
 	public List<FreeFileVO>list(Paging paging)throws Exception;
 	public int listCount()throws Exception;
+	public List<FreeFileVO>homeList()throws Exception;
 }

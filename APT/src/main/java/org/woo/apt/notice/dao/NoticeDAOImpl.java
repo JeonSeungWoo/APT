@@ -47,5 +47,10 @@ public class NoticeDAOImpl implements NoticeDAO{
 		return session.selectOne(name+"listCount");
 	}
 
+	@Override
+	public List<NoticeVO> homeList() throws Exception {
+		return session.selectList(name + "homeList");
+	}
+
 
 }

@@ -13,4 +13,5 @@ public interface PayFileService {
 	public void delete(int pfno) throws Exception;
 	public List<PayFileVO>list(Paging paging)throws Exception;
 	public int listCount()throws Exception;
+	public List<PayFileVO>homeList()throws Exception;
 }
