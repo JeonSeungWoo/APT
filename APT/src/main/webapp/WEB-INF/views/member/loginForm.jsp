@@ -32,7 +32,8 @@
           <form action="" class="">
             <div class="sns_wrap">
               <button class="sns_login naver">네이버 로그인</button>
-              <button class="sns_login kakao">카카오 로그인</button>
+             <!--  <button class="sns_login kakao">카카오 로그인</button> -->
+              <a  class="sns_login kakao" href="https://kauth.kakao.com/oauth/authorize?client_id=5b54b4a4b3c9b9a2ea0468e03a467785&redirect_uri=http://localhost/member/kakaoLogin&response_type=code">카카오 로그인 </a>
             </div>
           </form>
           <p class="login_txt">
@@ -51,7 +52,6 @@
 	        document.getElementById('login_btn').onclick = function() { 
 			location.href = "/member/signUpForm";
 	       }
-	
         });
     </script>
   
