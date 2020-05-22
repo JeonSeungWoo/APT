@@ -16,7 +16,7 @@
 			<div class="join_box">
 				<h2 class="join_title">Join</h2>
 
-				<form action="" id="form">
+				<form id="form" method="get">
 					<table class="join_table">
 						<colgroup>
 							<col style="width: 80px;" />
@@ -61,8 +61,8 @@
 							</tr>
 							<tr>
 								<th><label for="roadnameCode">주소</label></th>
-								<td colspan="2"><input type="text" id="roadnameCode"
-									name="roadnameCode" placeholder="우편번호" />
+								<td colspan="2">
+								<input type="text" id="roadnameCode" name="roadnameCode" placeholder="우편번호" />
 								</td>
 								<td>
 									<button type="button" class="find_address">우편번호 검색</button>
@@ -71,10 +71,10 @@
 							<tr>
 								<td></td>
 
-								<td colspan="2"><input type="text" id="address"
-									name="adress" placeholder="주소" /></td>
-								<td colspan="4"><input type="text" id="address_detail"
-									name="address_detail" placeholder="상세 주소" />
+								<td colspan="2">
+								<input type="text" id="address" name="address" placeholder="주소" /></td>
+								<td colspan="4">
+								<input type="text" id="address_detail" name="address_detail" placeholder="상세 주소" />
 								</td>
 							</tr>
 						</tbody>
@@ -147,8 +147,9 @@
               } else {
                 el.address_detail.val("");
               }
-              el.roadnameCode.val(data.zonecode).attr("disabled", true);
-              el.address.val(addr).attr("disabled", true);
+              el.roadnameCode.val(data.zonecode);
+              /* .attr("disabled", true); */
+              el.address.val(addr);
               el.address_detail.focus();
             },
           }).open();

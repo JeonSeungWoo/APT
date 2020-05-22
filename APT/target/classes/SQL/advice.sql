@@ -38,3 +38,15 @@ updatedate varchar(50)
 
 CREATE SEQUENCE seq_notice START 1;
 
+
+
+
+create table tbl_payment(
+pno int PRIMARY key,
+pfno int not null,
+mno int not null,
+price int not null,
+regdate varchar(50) not null
+);
+
+CREATE SEQUENCE seq_tbl_payment START 1;

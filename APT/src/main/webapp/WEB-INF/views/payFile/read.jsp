@@ -19,6 +19,11 @@
 	  <form id="form" method="get" enctype="multipart/form-data">
 		<input type="hidden" name="pfno" id="pfno" value="${vo.pfno}">
 		<input type="hidden" id="page" value="${param.page}"> 
+		<!--PG INPUT  -->
+		<input type="hidden" name="pay" id="pay" value="${read.pay}">
+	    <input type="hidden" name="name" id="name" value="${login.name}">
+	    <input type="hidden" name="phone" id="phone" value="${login.phone}">
+	    
         <div class="contents_inner">
           <div class="conWrap proud_list">
             <div class="subPage_title">
@@ -71,20 +76,50 @@
        <%@ include file="/resources/include/footer.jsp" %>
     </div>
     
+    <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
-			var form = $("#form");
-			/* $(".img").on("click", function() {
-				var src = $(this).attr("src");
-                window.location.href = src;
-			}); */
 			
+			var IMP = window.IMP;
+			IMP.init('imp23596754');
+			var form = $("#form");
+			
+			/*BUTTON ST  */
 			$("#payBtn").on("click", function() {
 				var pfno = $("#pfno").val();
-                location.href = "/payUpload/file?pfno="+ pfno;
+				var pay = $("#pay").val();
+				var name = $("#name").val();
+				var phone = $("#phone").val();
+				var msg = "";
+				//PG ST
+				IMP.request_pay({
+					amount : pay,
+					buyer_name : name,
+					name : '결제테스트',
+					buyer_email : ''
+				}, function(response) {
+					//결제 후 호출되는 callback함수
+					if ( response.success ) { //결제 성공
+						console.log(response);
+						msg = '결제가 완료되었습니다.';
+						msg += '결제 금액 : ' + response.paid_amount +'원';
+					    
+					    //성공하면 파일 다운로드 
+						location.href = "/payUpload/file?pfno="+ pfno+"&pay="+pay;
+					} else {
+						msg = '결제에 실패하였습니다.';
+						msg += '에러내용 : ' + response.error_msg ; 
+					}
+                     alert(msg);
+					
+				});
+				//PG END
+			
 			});
-
+			/*BUTTON END  */
+			
+			
 			$("#homeBtn").on("click", function() {
                 location.href = "/payFile/listPage?page=" + $("#page").val();
 			});

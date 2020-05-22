@@ -13,6 +13,7 @@ import org.woo.apt.file.dao.PayFileDAO;
 import org.woo.apt.file.dao.PayFileFilesDAO;
 import org.woo.apt.file.domain.PayFileFilesVO;
 import org.woo.apt.file.domain.PayFileVO;
+import org.woo.apt.file.domain.PaymentVO;
 import org.woo.apt.util.Paging;
 import org.woo.apt.util.UploadFileUtils;
 
@@ -95,6 +96,12 @@ public class PayFileServiceImpl implements PayFileService {
 	public List<PayFileVO> homeList() throws Exception {
 		// TODO Auto-generated method stub
 		return dao.homeList();
+	}
+
+	@Override
+	public void paymentInsert(PaymentVO vo) throws Exception {
+		dao.paymentInsert(vo);
+		
 	}
 
 }

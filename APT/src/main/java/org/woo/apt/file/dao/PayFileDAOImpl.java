@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 import org.woo.apt.file.domain.PayFileVO;
+import org.woo.apt.file.domain.PaymentVO;
 import org.woo.apt.util.Paging;
 
 @Repository
@@ -51,6 +52,11 @@ public class PayFileDAOImpl implements PayFileDAO{
 	@Override
 	public List<PayFileVO> homeList() throws Exception {
 		return session.selectList(name + "homeList");
+	}
+
+	@Override
+	public void paymentInsert(PaymentVO vo) throws Exception {
+		session.insert(name+"paymentInsert",vo);
 	}
 
 }

@@ -1,6 +1,7 @@
 package org.woo.apt.member.domain;
 
 public class MemberVO {
+	private int mno;
 	private String userid = "";
 	private String pw  = "";
 	private String name  = "";
@@ -18,7 +19,12 @@ public class MemberVO {
 	private String interlock_type = "";
 	private String regdate = "";
 	private String updatedate = "";
-	
+	public int getMno() {
+		return mno;
+	}
+	public void setMno(int mno) {
+		this.mno = mno;
+	}
 	public String getUserid() {
 		return userid;
 	}
@@ -105,11 +111,13 @@ public class MemberVO {
 	}
 	@Override
 	public String toString() {
-		return "MemberVO [userid=" + userid + ", pw=" + pw + ", name=" + name + ", phone=" + phone + ", auth=" + auth
-				+ ", apartment=" + apartment + ", roadnameCode=" + roadnameCode + ", address=" + address
-				+ ", address_detail=" + address_detail + ", sessionkey=" + sessionkey + ", sessionLimit=" + sessionLimit
-				+ ", interlock_type=" + interlock_type + ", regdate=" + regdate + ", updatedate=" + updatedate + "]";
+		return "MemberVO [mno=" + mno + ", userid=" + userid + ", pw=" + pw + ", name=" + name + ", phone=" + phone
+				+ ", auth=" + auth + ", apartment=" + apartment + ", roadnameCode=" + roadnameCode + ", address="
+				+ address + ", address_detail=" + address_detail + ", sessionkey=" + sessionkey + ", sessionLimit="
+				+ sessionLimit + ", interlock_type=" + interlock_type + ", regdate=" + regdate + ", updatedate="
+				+ updatedate + "]";
 	}
+	
 	
 
 

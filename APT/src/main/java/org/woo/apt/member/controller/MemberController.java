@@ -20,48 +20,48 @@ import org.woo.apt.member.service.MemberService;
 @Controller
 public class MemberController {
 
-	@Inject // byType으로 자동 주입
+	@Inject // byType�쑝濡� �옄�룞 二쇱엯
 	private MemberService service;
 	
 	@Inject
 	private BCryptPasswordEncoder passwordEncoder;
 
 
-	// 로그인 폼을 띄우는 부분
+	// 濡쒓렇�씤 �뤌�쓣 �쓣�슦�뒗 遺�遺�
 	@RequestMapping(value = "/loginForm", method = RequestMethod.GET)
 	public String loginForm() {
-		return "/member/loginForm"; // /login/loginForm.jsp를 띄움.
+		return "/member/loginForm"; // /login/loginForm.jsp瑜� �쓣��.
 	}// end of loginForm
 
-	// 로그인 처리하는 부분
+	// 濡쒓렇�씤 泥섎━�븯�뒗 遺�遺�
 	@RequestMapping(value = "/loginProcess", method = RequestMethod.POST)
 	public String loginProcess(HttpSession session, MemberVO dto) throws Exception {
 	
 		String returnURL = "";
 		if (session.getAttribute("login") != null) {
-			// 기존에 login이란 세션 값이 존재한다면
-			session.removeAttribute("login"); // 기존값을 제거해 준다.
+			// 湲곗〈�뿉 login�씠�� �꽭�뀡 媛믪씠 議댁옱�븳�떎硫�
+			session.removeAttribute("login"); // 湲곗〈媛믪쓣 �젣嫄고빐 以��떎.
 		}
 
-		//입력한 페스워드
+		//�엯�젰�븳 �럹�뒪�썙�뱶
 		String inpw = dto.getPw();
-		//입력한 페스워드 암호화
+		//�엯�젰�븳 �럹�뒪�썙�뱶 �븫�샇�솕
 		String encryptPassword = passwordEncoder.encode(inpw);
-		//암호화된 것을 저장.
+		//�븫�샇�솕�맂 寃껋쓣 ���옣.
 		dto.setPw(encryptPassword);
 		
-		//로그인 정보를 가져옴.
+		//濡쒓렇�씤 �젙蹂대�� 媛��졇�샂.
 		MemberVO vo = service.login(dto);
 		System.out.println(vo);
 		
 		//nullCheck
 		if(vo !=null) {
-			// 등어온 pw 와 DB의 가 같으면
+			// �벑�뼱�삩 pw �� DB�쓽 媛� 媛숈쑝硫�
 			if (passwordEncoder.matches(inpw, vo.getPw())) {
 					session.setAttribute("login", vo);
 					returnURL = "redirect:/";
 			} else { 
-				// 로그인에 실패한 경우
+				// 濡쒓렇�씤�뿉 �떎�뙣�븳 寃쎌슦
 				    returnURL = "redirect:/member/loginForm";
 			}
 
@@ -69,7 +69,7 @@ public class MemberController {
 			returnURL = "redirect:/member/loginForm";
 		}
 	
-		return returnURL; // 위에서 설정한 returnURL 을 반환해서 이동시킴
+		return returnURL; // �쐞�뿉�꽌 �꽕�젙�븳 returnURL �쓣 諛섑솚�빐�꽌 �씠�룞�떆�궡
 	}
 	
 
@@ -85,7 +85,7 @@ public class MemberController {
 			MemberVO vo = new MemberVO();
   			vo.setUserid(parmid.trim());
   			Integer checkPoint = service.checkId(vo);
-  			//입력값 체크 //out.print == 1이면 false  ,0 이면 true 
+  			//�엯�젰媛� 泥댄겕 //out.print == 1�씠硫� false  ,0 �씠硫� true 
   			if (parmid == "") {
   				out.print("1");
 			}else {
@@ -102,26 +102,27 @@ public class MemberController {
 		}
 
 	}
-	//회원가입FORM
+	//�쉶�썝媛��엯FORM
 	@RequestMapping(value = "/signUpForm", method = RequestMethod.GET)
 	public String signUpForm() {
-		return "/member/signUpForm"; // /login/loginForm.jsp를 띄움.
+		return "/member/signUpForm"; // /login/loginForm.jsp瑜� �쓣��.
 	}// end of loginForm
 	
-	//회원가입
+	//�쉶�썝媛��엯
 	@RequestMapping(value = "/loginCreate", method = RequestMethod.POST)
 	public String loginCreate(Model model, MemberVO vo) throws Exception {
+		System.out.println(vo);
 		service.signUp(vo);
 		return "redirect:/member/loginForm";
 	}
 
 
 
-	// 로그아웃 하는 부분
+	// 濡쒓렇�븘�썐 �븯�뒗 遺�遺�
 	@RequestMapping(value = "/logout")
 	public String logout(HttpSession session) {
-		session.invalidate(); // 세션 전체를 날려버림
-		// session.removeAttribute("login"); // 하나씩 하려면 이렇게 해도 됨.
-		return "redirect:/member/loginForm"; // 로그아웃 후 게시글 목록으로 이동하도록...함
+		session.invalidate(); // �꽭�뀡 �쟾泥대�� �궇�젮踰꾨┝
+		// session.removeAttribute("login"); // �븯�굹�뵫 �븯�젮硫� �씠�젃寃� �빐�룄 �맖.
+		return "redirect:/member/loginForm"; // 濡쒓렇�븘�썐 �썑 寃뚯떆湲� 紐⑸줉�쑝濡� �씠�룞�븯�룄濡�...�븿
 	}
 }

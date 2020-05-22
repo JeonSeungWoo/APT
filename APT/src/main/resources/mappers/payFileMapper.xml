@@ -118,5 +118,12 @@
 	</delete>
 
 
+     <!-- 결제 등록 -->
+      <insert id="paymentInsert" parameterType="PaymentVO">
+		insert into
+		tbl_payment(pno,pfno,mno,price,regdate)
+		values(nextval('seq_tbl_payment'),#{pfno} ,#{mno} ,#{price},now())
+	</insert>
+
 
 </mapper> 

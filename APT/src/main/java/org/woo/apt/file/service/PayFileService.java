@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 import org.woo.apt.file.domain.PayFileVO;
+import org.woo.apt.file.domain.PaymentVO;
 import org.woo.apt.util.Paging;
 
 public interface PayFileService {
@@ -14,4 +15,5 @@ public interface PayFileService {
 	public List<PayFileVO>list(Paging paging)throws Exception;
 	public int listCount()throws Exception;
 	public List<PayFileVO>homeList()throws Exception;
+	public void paymentInsert(PaymentVO vo)throws Exception;
 }

@@ -1,9 +1,10 @@
 package org.woo.apt.file.controller;
 
-import java.io.File;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +19,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.woo.apt.file.domain.PayFileFilesVO;
+import org.woo.apt.file.domain.PaymentVO;
 import org.woo.apt.file.service.PayFileFilesService;
+import org.woo.apt.file.service.PayFileService;
+import org.woo.apt.member.domain.MemberVO;
 import org.woo.apt.util.UploadFileUtils;
 
 @RequestMapping("/payUpload/*")
@@ -30,10 +34,13 @@ public class PayUploadController {
 	@Inject
 	private PayFileFilesService fservice;
 	
+	@Inject
+	private PayFileService pService;
+	
 	@ResponseBody
 	@RequestMapping(value = "/file", method = RequestMethod.GET, produces = MediaType.APPLICATION_ATOM_XML_VALUE)
 	public ResponseEntity<Resource> file(@RequestHeader("User-Agent")String userAgent,
-			@RequestParam("pfno") int pfno)
+			@RequestParam("pfno") int pfno,int pay,HttpServletRequest request)
 			throws Exception {
 		UploadFileUtils upload = new UploadFileUtils();
 		PayFileFilesVO vo = new PayFileFilesVO();
@@ -41,6 +48,16 @@ public class PayUploadController {
 		String path = fservice.fileList(pfno).get(0).getPath();
 		String filename = fservice.fileList(pfno).get(0).getFilename();
 		ResponseEntity<Resource> result = upload.fileShow(userAgent, path, filename);
+		//Pay Success -- DB Insert
+		PaymentVO pVO = new PaymentVO();
+		HttpSession session= request.getSession();
+		MemberVO memberVO = (MemberVO)session.getAttribute("login");
+		pVO.setPfno(pfno);
+		pVO.setMno(memberVO.getMno());
+		pVO.setPrice(pay);
+		System.out.println(pVO);
+		pService.paymentInsert(pVO);
+		
 		return result;
 	}
 
