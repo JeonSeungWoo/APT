@@ -68,6 +68,7 @@
     
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 	<script type="text/javascript">
+	$(document).ready(function() {
 		var form = $("#form");
 		$("#insertBtn").on("click", function() {
 			//이미지의 값 중 빈값이 있으면 등록 되지 않도록 구현한다.
@@ -78,8 +79,10 @@
 
 			if(title == "" || content == ""  || pay == ""){
 				alert("데이터를 입력해 주세요.");
+				return false;
 			}else if(fileVal == "" || fileVal == null) {
 				alert("파일을  등록해 주세요.");
+				return false;
 			} else {
 				form.attr("action", "insert");
 				form.attr("method", "POST");
@@ -88,6 +91,9 @@
 
 		});
 
+
+
+	});
 		
 	</script>
   </body>

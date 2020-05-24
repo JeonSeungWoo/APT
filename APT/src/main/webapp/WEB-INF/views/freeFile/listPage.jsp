@@ -30,13 +30,6 @@
               <form action="listPage" method="get" id="form">
               <input id="pageHidden" type="hidden" name="page" value="${param.page}"> 
                 <div class="srch_val">
-                  <label for="what" class="blind">검색어 입력</label>
-                  <select id="sType" name="sType" class="srch_sel">
-                  <option value="null" ${param.sType == "null" ? "selected" : ""}>--</option>
-                  <option value="title" ${param.sType == "title" ? "selected" : ""}>제목</option>
-				  <option value="content" ${param.sType == "content" ? "selected" : ""}>내용</option>
-                  </select>
-                  
                   <input type="text"
                     name="keyword"
                     id="keyword"

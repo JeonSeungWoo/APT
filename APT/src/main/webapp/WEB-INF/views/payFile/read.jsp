@@ -60,7 +60,9 @@
                 </tbody>
               </table>
               <div class="bottom_buttons">
+              <c:if test="${login.userid ne null}">
               <button type="button" id="payBtn" class="blackBtn">결제</button>
+              </c:if>
               <c:if test="${login.auth eq 1}">
                 <button type="button" id="updateBtn" class="blackBtn">수정</button>
                 <button  type="button" id="deleteBtn" class="pointBtn">삭제</button>

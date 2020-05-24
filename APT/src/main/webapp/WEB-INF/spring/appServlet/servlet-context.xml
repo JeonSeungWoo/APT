@@ -26,8 +26,17 @@
     <!-- Interceptor 설정 -->
     <interceptors>
         <interceptor>
+            <mapping path="/advice/insertPage"/>
+            <mapping path="/advice/updatePage"/>
+            <mapping path="/freeFile/insertPage"/>
+            <mapping path="/freeFile/updatePage"/>
             <mapping path="/payFile/insertPage"/>
-            
+            <mapping path="/payFile/updatePage"/>
+            <mapping path="/service/insertPage"/>
+            <mapping path="/service/updatePage"/>
+            <mapping path="/notice/insertPage"/>
+            <mapping path="/notice/updatePage"/>
+            <mapping path="/payUpload/file"/>
             <beans:ref bean="MemberIntercepter"/>
         </interceptor>
     </interceptors>

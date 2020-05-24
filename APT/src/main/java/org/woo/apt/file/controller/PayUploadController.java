@@ -40,10 +40,11 @@ public class PayUploadController {
 	@ResponseBody
 	@RequestMapping(value = "/file", method = RequestMethod.GET, produces = MediaType.APPLICATION_ATOM_XML_VALUE)
 	public ResponseEntity<Resource> file(@RequestHeader("User-Agent")String userAgent,
-			@RequestParam("pfno") int pfno,int pay,HttpServletRequest request)
+			@RequestParam("pfno") int pfno,HttpServletRequest request)
 			throws Exception {
 		UploadFileUtils upload = new UploadFileUtils();
 		PayFileFilesVO vo = new PayFileFilesVO();
+		int pay = pService.read(pfno).getPay();
 		vo.setPfno(pfno);
 		String path = fservice.fileList(pfno).get(0).getPath();
 		String filename = fservice.fileList(pfno).get(0).getFilename();
@@ -60,6 +61,42 @@ public class PayUploadController {
 		
 		return result;
 	}
+	  
+//	@RequestMapping(value = "/fileAll", method = RequestMethod.GET, produces = MediaType.APPLICATION_ATOM_XML_VALUE)
+//	public ResponseEntity<Resource> fileAll(@RequestHeader("User-Agent")String userAgent,
+//			@RequestParam("chked_val")String chked_val,HttpServletRequest request)
+//			throws Exception {
+//		//pfno값을 이용해서 전부 가져와야 한다.
+//		System.out.println(chked_val);
+//		String[] checkArray = chked_val.split(",");
+//		System.out.println(checkArray.length);
+//		ResponseEntity<Resource> result = null;
+//		for (int i = 0; i < checkArray.length; i++) {
+//			int pfno = Integer.parseInt(checkArray[i]);
+//			int pay = pService.read(pfno).getPay();
+//			System.out.println(pfno + " : " + pay);
+//			UploadFileUtils upload = new UploadFileUtils();
+//			PayFileFilesVO vo = new PayFileFilesVO();
+//			vo.setPfno(pfno);
+//			String path = fservice.fileList(pfno).get(0).getPath();
+//			String filename = fservice.fileList(pfno).get(0).getFilename();
+//			result = upload.fileShow(userAgent, path, filename);
+//			
+//			//Pay Success -- DB Insert
+//			PaymentVO pVO = new PaymentVO();
+//			HttpSession session= request.getSession();
+//			MemberVO memberVO = (MemberVO)session.getAttribute("login");
+//			pVO.setPfno(pfno);
+//			pVO.setMno(memberVO.getMno());
+//			pVO.setPrice(pay);   
+//			System.out.println(pVO);
+//			pService.paymentInsert(pVO);
+//			
+//			return result;
+//		}
+//		
+//		return result;
+//	}
 
 	@RequestMapping(value = "/fileDelete")
 	public String imgDelete(int page,@RequestParam("pfno")int pfno,  @RequestParam("filename")String filename) throws Exception {

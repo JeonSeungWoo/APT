@@ -12,7 +12,8 @@
 
 	<select id="read" resultType="FreeFileVO">
 		select * from tbl_freeFile
-		 WHERE ffno = #{ffno}
+		WHERE
+		ffno = #{ffno}
 	</select>
 
 	<update id="update" parameterType="FreeFileVO">
@@ -34,29 +35,18 @@
 	<select id="list" parameterType="Paging" resultType="FreeFileVO">
 		select
 		*
-		from tbl_freeFile
-		<if test="sType != null">
-			<if test="sType eq 'title'.toString()">
-				where title like '%'||#{keyword}||'%'
-			</if>
-			<if test="sType eq 'content'.toString()">
-				where content like '%'||#{keyword}||'%'
-			</if>
-		</if>
+		from
+		tbl_freeFile
+		where title like '%'||#{keyword}||'%'
 		order by ffno desc
-		LIMIT #{pageSize} OFFSET (#{page} - 1) * #{pageSize}
+		LIMIT #{pageSize}
+		OFFSET (#{page} - 1) * #{pageSize}
 	</select>
 
 	<select id="listCount" resultType="java.lang.Integer">
-		select count(1) from tbl_freeFile
-		<if test="sType != null">
-			<if test="sType eq 'title'.toString()">
-				where title like '%'||#{keyword}||'%'
-			</if>
-			<if test="sType eq 'content'.toString()">
-				where content like '%'||#{keyword}||'%'
-			</if>
-		</if>
+		select count(1) from
+		tbl_freeFile
+		where title like '%'||#{keyword}||'%'
 	</select>
 
 	<!-- HomeList -->
@@ -64,15 +54,18 @@
 		select
 		*
 		from tbl_freeFile
-		order by ffno desc
+		order
+		by ffno desc
 		LIMIT 3 OFFSET 0
 	</select>
 	<!-- 이미지 영역 -->
 
 	<insert parameterType="FreeFileFilesVO" id="fileInsert">
-		insert into tbl_freeFile_file(fffno,ffno,path,filename,regdate)
+		insert into
+		tbl_freeFile_file(fffno,ffno,path,filename,regdate)
 		values
-		(nextval('seq_tbl_freeFile_file') ,(select ffno from tbl_freeFile order by ffno desc limit 1)
+		(nextval('seq_tbl_freeFile_file') ,(select ffno from tbl_freeFile
+		order by ffno desc limit 1)
 		,#{path} ,#{filename},now())
 	</insert>
 
@@ -81,7 +74,8 @@
 		select
 		fffno,ffno,path,filename,regdate
 		from tbl_freeFile_file
-		where ffno = #{ffno}
+		where ffno =
+		#{ffno}
 	</select>
 
 	<!--이미지 보여주는 쿼리. -->
@@ -90,7 +84,8 @@
 		fffno,ffno,path,filename,regdate
 		from
 		tbl_freeFile_file
-		where ffno = #{ffno}
+		where ffno =
+		#{ffno}
 		and filename = #{filename}
 	</select>
 
@@ -105,14 +100,16 @@
 	<insert id="fileInsertOne" parameterType="FreeFileFilesVO">
 		insert into
 		tbl_freeFile_file(fffno,ffno,path,filename,regdate)
-		values(nextval('seq_tbl_freeFile_file'),#{ffno} ,#{path} ,#{filename},now())
+		values(nextval('seq_tbl_freeFile_file'),#{ffno} ,#{path}
+		,#{filename},now())
 	</insert>
 
 	<!--한개 -->
 	<delete id="fileDeleteOne">
 		delete
 		from tbl_freeFile_file
-		where ffno = #{ffno} and filename = #{filename}
+		where ffno = #{ffno} and
+		filename = #{filename}
 	</delete>
 
 

@@ -12,7 +12,7 @@
 
 	<select id="read" resultType="PayFileVO">
 		select * from tbl_payFile
-		 WHERE pfno = #{pfno}
+		WHERE pfno = #{pfno}
 	</select>
 
 	<update id="update" parameterType="PayFileVO">
@@ -35,46 +35,37 @@
 	<select id="list" parameterType="Paging" resultType="PayFileVO">
 		select
 		*
-		from tbl_payFile
-		<if test="sType != null">
-			<if test="sType eq 'title'.toString()">
-				where title like '%'||#{keyword}||'%'
-			</if>
-			<if test="sType eq 'content'.toString()">
-				where content like '%'||#{keyword}||'%'
-			</if>
-		</if>
+		from
+		tbl_payFile
+		where title like '%'||#{keyword}||'%'
 		order by pfno desc
 		LIMIT #{pageSize} OFFSET (#{page} - 1) * #{pageSize}
 	</select>
 
 	<select id="listCount" resultType="java.lang.Integer">
-		select count(1) from tbl_payFile
-		<if test="sType != null">
-			<if test="sType eq 'title'.toString()">
-				where title like '%'||#{keyword}||'%'
-			</if>
-			<if test="sType eq 'content'.toString()">
-				where content like '%'||#{keyword}||'%'
-			</if>
-		</if>
+		select count(1) from
+		tbl_payFile
+		where title like '%'||#{keyword}||'%'
 	</select>
-	
+
 	<!-- HomeList -->
 	<select id="homeList" resultType="PayFileVO">
 		select
 		*
 		from tbl_payFile
-		order by pfno desc
+		order by
+		pfno desc
 		LIMIT 3 OFFSET 0
 	</select>
 
 	<!-- 이미지 영역 -->
 
 	<insert parameterType="PayFileFilesVO" id="fileInsert">
-		insert into tbl_payFile_file(pffno,pfno,path,filename,regdate)
+		insert into
+		tbl_payFile_file(pffno,pfno,path,filename,regdate)
 		values
-		(nextval('seq_tbl_payFile_file') ,(select pfno from tbl_payFile order by pfno desc limit 1)
+		(nextval('seq_tbl_payFile_file') ,(select pfno from tbl_payFile order
+		by pfno desc limit 1)
 		,#{path} ,#{filename},now())
 	</insert>
 
@@ -83,7 +74,8 @@
 		select
 		pffno,pfno,path,filename,regdate
 		from tbl_payFile_file
-		where pfno = #{pfno}
+		where pfno =
+		#{pfno}
 	</select>
 
 	<!--이미지 보여주는 쿼리. -->
@@ -92,7 +84,8 @@
 		pffno,pfno,path,filename,regdate
 		from
 		tbl_payFile_file
-		where pfno = #{pfno}
+		where pfno =
+		#{pfno}
 		and filename = #{filename}
 	</select>
 
@@ -107,19 +100,21 @@
 	<insert id="fileInsertOne" parameterType="PayFileFilesVO">
 		insert into
 		tbl_payFile_file(pffno,pfno,path,filename,regdate)
-		values(nextval('seq_tbl_payFile_file'),#{pfno} ,#{path} ,#{filename},now())
+		values(nextval('seq_tbl_payFile_file'),#{pfno} ,#{path}
+		,#{filename},now())
 	</insert>
 
 	<!--한개 -->
 	<delete id="fileDeleteOne">
 		delete
 		from tbl_payFile_file
-		where pfno = #{pfno} and filename = #{filename}
+		where pfno = #{pfno} and
+		filename = #{filename}
 	</delete>
 
 
-     <!-- 결제 등록 -->
-      <insert id="paymentInsert" parameterType="PaymentVO">
+	<!-- 결제 등록 -->
+	<insert id="paymentInsert" parameterType="PaymentVO">
 		insert into
 		tbl_payment(pno,pfno,mno,price,regdate)
 		values(nextval('seq_tbl_payment'),#{pfno} ,#{mno} ,#{price},now())

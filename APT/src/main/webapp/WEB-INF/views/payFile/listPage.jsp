@@ -29,14 +29,10 @@
               
               <form action="listPage" method="get" id="form">
               <input id="pageHidden" type="hidden" name="page" value="${param.page}"> 
+	          <input type="hidden" name="name" id="name" value="${login.name}">
+	          <input type="hidden" name="phone" id="phone" value="${login.phone}">
                 <div class="srch_val">
-                  <label for="what" class="blind">검색어 입력</label>
-                  <select id="sType" name="sType" class="srch_sel">
-                  <option value="null" ${param.sType == "null" ? "selected" : ""}>--</option>
-                  <option value="title" ${param.sType == "title" ? "selected" : ""}>제목</option>
-				  <option value="content" ${param.sType == "content" ? "selected" : ""}>내용</option>
-                  </select>
-                  
+
                   <input type="text"
                     name="keyword"
                     id="keyword"
@@ -53,22 +49,28 @@
             >
               <colgroup>
                 <col width="5%" />
+                <col width="5%" />
                 <col width="*" />
-                <col width="8%" />
                 <col width="10%" />
                 <col width="10%" />
               </colgroup>
               <tbody>
                 <tr>
+                <th scope="col">
+                   <input type="checkbox" name="checkAll" id="checkAll" onclick="checkAll();"/>
+               </th>
                   <th scope="col">번호</th>
                   <th scope="col">제목</th>
                   <th scope="col">가격</th>
-                  <th scope="col">첨부파일</th>
                   <th scope="col">등록일</th>
                 </tr>
                 
                 <c:forEach items="${list}" var="list">
                 <tr>
+                 <td>
+                 <span class="tdNum">
+                 <input type="checkbox" name="checkRow" class="checkRow" value="${list.pfno}" attr-date="${list.pay}" />
+                 </span></td>
                   <td><span class="tdNum">${list.pfno}</span></td>
                   <td class="listSubject">
                     <a href="/payFile/read?page=${param.page}&pfno=${list.pfno}" class="tableSubject">
@@ -76,11 +78,6 @@
                     </a>
                   </td>
                   <td class="price">${list.pay}원</td>
-                  <td>
-                    <a href="#" class="fileDown" attr-date="${list.pfno}" >
-                      <span class="fs09e clr88">받기</span>
-                      </a>
-                  </td>
                   <td><span class="tdDate">${list.regdate}</span></td>
                 </tr>
                 </c:forEach>
@@ -125,11 +122,16 @@
               
             </ul>
           </div>
-          <c:if test="${login.auth eq 1}">
+          
           <div class="bottom_buttons">
+           <c:if test="${login.userid ne null}">
+          <button type="button" id="payBtn" class="blackBtn">결제</button>
+           </c:if>
+            <c:if test="${login.auth eq 1}">
             <a href="/payFile/insertPage" id="insertBtn" class="blackBtn">등록</a>
+            </c:if>
           </div>
-          </c:if>
+          
           <!-- contents e -->
         </div>
       </div>
@@ -138,21 +140,112 @@
    
     </div>
   </body>
+      <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script type="text/javascript">
  $(document).ready(function(){
+
+		$(".searchBtn").on("click",function(event){
+			event.preventDefault();
+			$("#pageHidden").val(1);
+			$("#form").submit();
+		});
+		
+	    var IMP = window.IMP;
+		IMP.init('imp23596754');
+		var form = $("#form");
+		
+      function sleep(delay) {
+	        var start = new Date().getTime();
+			while (new Date().getTime() < start + delay);
+	  }
+
+      
+ 
+		/*BUTTON ST  */
+		$("#payBtn").on("click", function() {
+			
+			//pfno의 값을
+			var chked_val = "";
+			var pay = 0;
+	         $(":checkbox[name='checkRow']:checked").each(function(pi,po){
+	              chked_val += ","+po.value; 
+	              pay += parseInt(po.getAttribute('attr-date'));
+                  console.log(pi);
+	         }); 
+	        chked_val = chked_val.substring(1); // 1st (,) removed
+            console.log(chked_val);
+            
+            if(chked_val == ''){
+                alert('한개이상 눌러주세요.');
+            }else{
+				var name = $("#name").val();
+				var phone = $("#phone").val();
+				
+            	//PG ST
+				IMP.request_pay({
+					amount : pay,
+					buyer_name : name,
+					name : '결제테스트',
+					buyer_email : ''
+				}, function(response) {
+					//결제 후 호출되는 callback함수
+					if ( response.success ) { //결제 성공
+						console.log(response);
+						msg = '결제가 완료되었습니다.';
+						msg += '결제 금액 : ' + response.paid_amount +'원';
+					    //성공하면 파일 다운로드 
+						 var chkedArray = chked_val.split(',');
+		                  for(var i=0; i<chkedArray.length; i++) {
+		                	  sleep(2000); 
+		                      location.href = "/payUpload/file?pfno="+ chkedArray[i]; 
+		                  }
+		                  
+					} else {
+						msg = '결제에 실패하였습니다.';
+						msg += '에러내용 : ' + response.error_msg ; 
+					}
+                     alert(msg);
+					
+				});
+				//PG END
+            	 
+            } 
+          
+		});
+		/*BUTTON END  */
+		
+
+		
+
+
+	//allCHek
+	  var selectAll = document.querySelector("#checkAll");
+      selectAll.addEventListener('click', function(){
+          var objs = document.querySelectorAll(".checkRow");
+          for (var i = 0; i < objs.length; i++) {
+            objs[i].checked = selectAll.checked;
+          };
+      }, false);
+       
+      var objs = document.querySelectorAll(".checkRow");
+      for(var i=0; i<objs.length ; i++){
+        objs[i].addEventListener('click', function(){
+          var selectAll = document.querySelector("#checkAll");
+          for (var j = 0; j < objs.length; j++) {
+            if (objs[j].checked === false) {
+              selectAll.checked = false;
+              return;
+            };
+          };
+          selectAll.checked = true;                                   
+      }, false);
+      } 
+
+      //결제
+      
+
 	
-	$(".searchBtn").on("click",function(event){
-		event.preventDefault();
-		$("#pageHidden").val(1);
-		$("#form").submit();
-	});
-
-	$(".fileDown").on("click",function(event){
-        var pfno = $(this).attr("attr-date");
-        location.href = "/payUpload/file?pfno="+ pfno;
-	});
-
 });
 
 
