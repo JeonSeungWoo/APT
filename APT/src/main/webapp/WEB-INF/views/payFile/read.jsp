@@ -82,6 +82,24 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
+
+
+		      $(document).bind('keydown',function(e){
+		          if ( e.keyCode == 123 /* F12 */) {
+		              e.preventDefault();
+		              e.returnValue = false;
+		          }
+		      });
+		      document.onmousedown=disableclick;
+		      status="여기서는 마우스 우클릭이 안됩니다.";
+		      
+		      function disableclick(event){
+		          if (event.button==2) {
+		              alert(status);
+		              return false;
+		          }
+
+		      }
 			
 			var IMP = window.IMP;
 			IMP.init('imp23596754');
