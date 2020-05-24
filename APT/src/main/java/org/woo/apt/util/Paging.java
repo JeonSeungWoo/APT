@@ -32,17 +32,13 @@ public class Paging {
 //		}
 //		page = ( page - 1 ) * pageSize;
 
-		// �삱由�.(0.1~0.9 = 1*10 ,1.1~1.9 = 2*10)
 		int tempEnd = (int) (Math.ceil(page / 10.0) * 10);
 		// �떆�옉�럹�씠吏�
 		startPage = tempEnd - 9;
 
-		// �씠�쟾 �겢由��떆 (�럹�씠吏�媛� 1�씪�븣�뒗 prev媛� 蹂댁씠硫� �븞�맂�떎.)
 		prev = startPage == 1 ? false : true;
-		// �걹�굹�뒗 �럹�씠吏� �꽕�젙. �셿�쟾�엳 留덉�留� �럹�씠吏�.
 		if (tempEnd * pageSize >= totalPage) {
 			endPage = (int) (Math.ceil(totalPage / pageSize) + 1);
-			// �셿�쟾�엳 留덉�留됱뿉�꽌�뒗 next媛� 蹂댁씠硫� �븞�맂�떎.
 			next = false;
 		} else {
 			endPage = tempEnd;

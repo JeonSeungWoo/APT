@@ -30,12 +30,15 @@
               <form action="listPage" method="get" id="form">
               <input id="pageHidden" type="hidden" name="page" value="${param.page}"> 
                 <div class="srch_val">
-                  <input type="text"
-                    name="keyword"
-                    id="keyword"
+                    <label for="what" class="blind">검색어 입력</label>
+                  <input
+                    type="text"
+                    name="what"
+                    id="what"
                     class="mr10 srch_input"
                     placeholder="검색어 입력"
-                    value="${param.keyword}" />
+                    value="${param.keyword}"
+                  />
                   <a href="#none" class="btnS searchBtn"> 검색하기</a>
                 </div>
               </form>

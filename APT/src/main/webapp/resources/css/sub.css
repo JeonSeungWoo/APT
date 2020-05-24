@@ -18,7 +18,7 @@
   white-space: nowrap;
 }
 .pointC1 {
-  color: #ed7c7a;
+  color: #06215c;
 }
 .pointC2 {
   color: #5a91e4;
@@ -213,8 +213,9 @@ input[type="checkbox"] {
   padding-top: 25px;
   padding-bottom: 25px;
   width: 100%;
-  background: #f7f7f7;
-  border-bottom: 1px #f7f7f7 solid;
+  background: #f4f7fd;
+  border-top: 2px solid #333;
+  border-bottom: 1px #ddd solid;
 }
 .srch_title {
   float: left;
@@ -226,13 +227,11 @@ input[type="checkbox"] {
   color: #333;
   font-weight: 600;
   text-align: center;
-  border-right: 1px solid #ddd;
 }
 .srch_val {
   float: left;
   width: 79%;
   box-sizing: border-box;
-  padding-left: 40px;
   text-align: left;
 }
 .srch_val input[type="text"] {
@@ -252,7 +251,7 @@ input[type="checkbox"] {
   text-indent: 10px;
 }
 .srch_input {
-  width: 500px;
+  width: 680px;
 }
 .market_searchBox {
   float: left;
@@ -718,7 +717,7 @@ input[type="checkbox"] {
   font-weight: 600;
   font-size: 1.6em;
   color: #fff;
-  background: #bb2b4d;
+  background: #333;
 }
 .searchBtn:hover {
   color: #fff;
@@ -793,7 +792,7 @@ input[type="checkbox"] {
   line-height: 28px;
   font-size: 1em;
   color: #fff;
-  background: #db496d;
+  background: #06215c;
 }
 
 .blackBtn,
@@ -863,7 +862,7 @@ input[type="checkbox"] {
 .listTable1 th,
 .listTable1 td {
   text-align: center;
-  font-size: 1.3em;
+  font-size: 14px;
   letter-spacing: -0.025em;
   border-right: 1px solid #eee;
 }
@@ -874,7 +873,7 @@ input[type="checkbox"] {
 .listTable1 th {
   padding: 14px 10px;
   font-weight: 600;
-  background: #f7f7f7;
+  background: #f4f7fd;
   border-bottom: 1px solid #777;
 }
 .listTable1 td {
@@ -1286,7 +1285,7 @@ td.price {
   letter-spacing: -0.025em;
   font-weight: 600;
   text-align: center;
-  background: #f7f7f7;
+  background: #f4f7fd;
   border-bottom: 1px solid #ddd;
 }
 .viewTable6 td {
@@ -1461,7 +1460,7 @@ td .tdNum {
 }
 td .tdDate {
   font-family: "vardana";
-  font-size: 11px;
+  font-size: 13px;
   letter-spacing: 0;
   color: #888;
 }
