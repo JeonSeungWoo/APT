@@ -12,6 +12,7 @@
       rel="stylesheet"/>
     <link rel="stylesheet" href="/resources/css/common.css" />
     <link rel="stylesheet" href="/resources/css/sub.css" />
+      
   </head>
   <body>
     <div class="wrap">
