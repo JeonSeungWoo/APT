@@ -1,6 +1,5 @@
 package org.woo.apt.file.controller;
 
-import java.io.File;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -69,8 +68,8 @@ public class FreeUploadController {
 			for (int i = 0; i < file.size(); i++) {
 				String originalName = file.get(i).getOriginalFilename();
 				byte[] fileData = file.get(i).getBytes();
-				String uploadedFileName = UploadFileUtils.saveFile("C:\\freeTemp", originalName, fileData);
-				String path = "C:\\freeTemp" + uploadedFileName.substring(0, 12);
+				String uploadedFileName = UploadFileUtils.saveFile("D:\\freeTemp", originalName, fileData);
+				String path = "D:\\freeTemp" + uploadedFileName.substring(0, 12);
 				String saveFileName = uploadedFileName.substring(uploadedFileName.lastIndexOf("/") + 1);
 				String formatName = originalName.substring(originalName.lastIndexOf(".") + 1);
 				//�솗�옣�옄 null 泥댄겕

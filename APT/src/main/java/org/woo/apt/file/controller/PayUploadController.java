@@ -121,8 +121,8 @@ public class PayUploadController {
 			for (int i = 0; i < file.size(); i++) {
 				String originalName = file.get(i).getOriginalFilename();
 				byte[] fileData = file.get(i).getBytes();
-				String uploadedFileName = UploadFileUtils.saveFile("C:\\payTemp", originalName, fileData);
-				String path = "C:\\payTemp" + uploadedFileName.substring(0, 12);
+				String uploadedFileName = UploadFileUtils.saveFile("D:\\payTemp", originalName, fileData);
+				String path = "D:\\payTemp" + uploadedFileName.substring(0, 12);
 				String saveFileName = uploadedFileName.substring(uploadedFileName.lastIndexOf("/") + 1);
 				String formatName = originalName.substring(originalName.lastIndexOf(".") + 1);
 				//�솗�옣�옄 null 泥댄겕
