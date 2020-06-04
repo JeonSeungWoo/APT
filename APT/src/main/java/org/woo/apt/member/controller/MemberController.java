@@ -54,8 +54,6 @@ public class MemberController {
 
 		// 濡쒓렇�씤 �젙蹂대�� 媛��졇�샂.
 		MemberVO vo = service.login(dto);
-		System.out.println(vo);
-
 		// nullCheck
 		if (vo != null) {
 			// �벑�뼱�삩 pw �� DB�쓽 媛� 媛숈쑝硫�
@@ -111,7 +109,7 @@ public class MemberController {
 	// �쉶�썝媛��엯
 	@RequestMapping(value = "/loginCreate", method = RequestMethod.POST)
 	public String loginCreate(Model model, MemberVO vo) throws Exception {
-		System.out.println(vo);
+		
 		service.signUp(vo);
 		return "redirect:/member/loginForm";
 	}
@@ -131,10 +129,10 @@ public class MemberController {
 			RequestMethod.POST })
 	public String kakaoLogin(HttpSession session, @RequestParam("code") String code, HttpServletRequest request,
 			HttpServletResponse reponse) {
-		System.out.println(code);
+		
 		JsonNode jsonToken = KaKaoUtil.getAccessToken(code);
 
-		System.out.println("JSON 반환 : " + jsonToken.get("access_token"));
+		
 
 		JsonNode userInfo = KaKaoUtil.getKakaoUserInfo(jsonToken.get("access_token"));
 

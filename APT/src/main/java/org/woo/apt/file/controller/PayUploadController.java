@@ -12,6 +12,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -37,6 +38,7 @@ public class PayUploadController {
 	@Inject
 	private PayFileService pService;
 	
+	@Transactional
 	@ResponseBody
 	@RequestMapping(value = "/file", method = RequestMethod.GET, produces = MediaType.APPLICATION_ATOM_XML_VALUE)
 	public ResponseEntity<Resource> file(@RequestHeader("User-Agent")String userAgent,
@@ -56,7 +58,6 @@ public class PayUploadController {
 		pVO.setPfno(pfno);
 		pVO.setMno(memberVO.getMno());
 		pVO.setPrice(pay);
-		System.out.println(pVO);
 		pService.paymentInsert(pVO);
 		
 		return result;
@@ -116,7 +117,6 @@ public class PayUploadController {
 			PayFileFilesVO fvo = new PayFileFilesVO();
 			
 			fvo.setPfno(pfno);
-			System.out.println(fvo);
 
 			for (int i = 0; i < file.size(); i++) {
 				String originalName = file.get(i).getOriginalFilename();
@@ -125,8 +125,7 @@ public class PayUploadController {
 				String path = "D:\\payTemp" + uploadedFileName.substring(0, 12);
 				String saveFileName = uploadedFileName.substring(uploadedFileName.lastIndexOf("/") + 1);
 				String formatName = originalName.substring(originalName.lastIndexOf(".") + 1);
-				//�솗�옣�옄 null 泥댄겕
-				System.out.println(formatName);
+				
 				if (formatName == null || formatName.equals("")) {
 				}else{
 				fvo.setFilename(saveFileName);

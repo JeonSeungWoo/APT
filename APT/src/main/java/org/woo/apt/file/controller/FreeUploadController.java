@@ -63,7 +63,6 @@ public class FreeUploadController {
 		public String insertImage(int page,int ffno, @RequestParam("file")List<MultipartFile> file) throws Exception {
 			FreeFileFilesVO fvo = new FreeFileFilesVO();
 			fvo.setFfno(ffno);
-			System.out.println(fvo);
 
 			for (int i = 0; i < file.size(); i++) {
 				String originalName = file.get(i).getOriginalFilename();
@@ -72,8 +71,6 @@ public class FreeUploadController {
 				String path = "D:\\freeTemp" + uploadedFileName.substring(0, 12);
 				String saveFileName = uploadedFileName.substring(uploadedFileName.lastIndexOf("/") + 1);
 				String formatName = originalName.substring(originalName.lastIndexOf(".") + 1);
-				//�솗�옣�옄 null 泥댄겕
-				System.out.println(formatName);
 				if (formatName == null || formatName.equals("")) {
 				}else{
 				fvo.setFilename(saveFileName);

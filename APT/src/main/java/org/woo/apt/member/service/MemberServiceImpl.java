@@ -29,9 +29,8 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public void signUp(MemberVO vo) throws Exception {
-		System.out.println(vo.getPw());
+		
 		String encryptPassword = passwordEncoder.encode(vo.getPw());
-		System.out.println(encryptPassword);
 		vo.setPw(encryptPassword);
 		
 		dao.signUp(vo);

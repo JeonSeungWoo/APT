@@ -31,7 +31,7 @@ public class UploadFileUtils {
 //	public @ResponseBody byte[] show(String path, String fileName) throws Exception {
 //		InputStream in;
 //		in = new FileInputStream(path + fileName);
-//		// IO 스트림 조작 유틸.(toByteArray는 in을 인코딩.)
+//		// IO �뒪�듃由� 議곗옉 �쑀�떥.(toByteArray�뒗 in�쓣 �씤肄붾뵫.)
 //		byte[] result = IOUtils.toByteArray(in);
 //		in.close();
 //		return result;
@@ -45,20 +45,20 @@ public class UploadFileUtils {
 		}
 		String resorceName = resource.getFilename();
 		String resorceOriName = resorceName.substring(resorceName.indexOf("_") + 1);
-		 System.out.println(resorceOriName);
+		
 		HttpHeaders headers = new HttpHeaders();
-		// 에외 처리
+		// �뿉�쇅 泥섎━
 		try {
 			String downloadName = null;
-			//user-Agent의 정보를 파라미터로 받아 브라우저별 처리
-			if(reqHeader.contains("Trident")) {	//IE 브라우저 엔진 이름
-				System.out.println("IE");
+			//user-Agent�쓽 �젙蹂대�� �뙆�씪誘명꽣濡� 諛쏆븘 釉뚮씪�슦��蹂� 泥섎━
+			if(reqHeader.contains("Trident")) {	//IE 釉뚮씪�슦�� �뿏吏� �씠由�
+				
 				downloadName = URLEncoder.encode(resorceOriName, "UTF-8").replaceAll("\\+", "%20");;
 			}else if(reqHeader.contains("Edge")) {
-				System.out.println("Edge");
+			
 				downloadName = URLEncoder.encode(resorceOriName, "UTF-8");
-			}else{	//크롬
-				System.out.println("chrom");
+			}else{	//�겕濡�
+				
 				downloadName = URLEncoder.encode(resorceOriName, "UTF-8");
 			}
 			headers.add("Content-Disposition", "attachment; filename=" + downloadName);
@@ -71,35 +71,35 @@ public class UploadFileUtils {
 
 	
 	
-	//파일 저장.
+	//�뙆�씪 ���옣.
 	public static String saveFile(String uploadPath, String originalName, byte[] fileData) throws Exception {
 		UUID uid = UUID.randomUUID();
 		String savedName = uid.toString() + "_" + originalName;
 		String savedPath = calcPath(uploadPath);
 		File target = new File(uploadPath + savedPath, savedName);
 
-		// byte[] input, File output (자동 close;)
+		// byte[] input, File output (�옄�룞 close;)
 		FileCopyUtils.copy(fileData, target);
 		String formatName = originalName.substring(originalName.lastIndexOf(".") + 1);
 		String uploadedFileName = null;
 
-		// 이미지이면
+		// �씠誘몄��씠硫�
 		if (getMediaType(formatName) != null) {
 			uploadedFileName = makeThumbnail(uploadPath, savedPath, savedName);
-			// 이미지가 아닌 파일이 들어 왔을 시
+			// �씠誘몄�媛� �븘�땶 �뙆�씪�씠 �뱾�뼱 �솕�쓣 �떆
 		} else {
 			uploadedFileName = makeIcon(uploadPath, savedPath, savedName);
 		}
 		return uploadedFileName;
 	}
 
-	// 파일처리
+	// �뙆�씪泥섎━
 	private static String makeIcon(String uploadPath, String path, String fileName) throws Exception {
 		String iconName = uploadPath + path + File.separator + fileName;
 		return iconName.substring(uploadPath.length()).replace(File.separatorChar, '/');
 	}
 
-	// 썸네일 처리
+	// �뜽�꽕�씪 泥섎━
 	private static String makeThumbnail(String uploadPath, String path, String fileName) throws Exception {
 		BufferedImage sourceImg = ImageIO.read(new File(uploadPath + path, fileName));
 		BufferedImage destImg = Scalr.resize(sourceImg, Scalr.Method.AUTOMATIC, Scalr.Mode.FIT_TO_HEIGHT, 100);
@@ -110,7 +110,7 @@ public class UploadFileUtils {
 		return thumbnailName.substring(uploadPath.length()).replace(File.separatorChar, '/');
 	}
 
-	// 날짜 처리
+	// �궇吏� 泥섎━
 	public static String calcPath(String uploadPath) {
 		Calendar cal = Calendar.getInstance();
 		String yearPath = File.separator + cal.get(Calendar.YEAR);
@@ -120,7 +120,7 @@ public class UploadFileUtils {
 		return datePath;
 	}
 
-	// 퐁더 만들기
+	// �릟�뜑 留뚮뱾湲�
 	private static void makeDir(String uploadPath, String... paths) {
 		if (new File(paths[paths.length - 1]).exists()) {
 			return;
@@ -144,17 +144,17 @@ public class UploadFileUtils {
 		return mediaMap.get(type.toUpperCase());
 	}
 
-	// 삭제 처리
+	// �궘�젣 泥섎━
 	public void deleteFile(String location, String fileName) {
 		File file = new File(location + fileName);
 		if (file.exists()) {
 			if (file.delete()) {
-				logger.info("파일삭제 성공");
+				logger.info("�뙆�씪�궘�젣 �꽦怨�");
 			} else {
-				logger.info("파이삭제 실패");
+				logger.info("�뙆�씠�궘�젣 �떎�뙣");
 			}
 		} else {
-			logger.info("파일이 존재하지 않습니다.");
+			logger.info("�뙆�씪�씠 議댁옱�븯吏� �븡�뒿�땲�떎.");
 		}
 	}
 }

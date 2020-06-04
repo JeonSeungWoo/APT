@@ -120,7 +120,7 @@
       <div class="contents">
         <div class="main_banner">
           <div class="banner_inner">
-            <img src="1.png" alt="" class="banner_img" />
+            <img src="/resources/img/1.png" alt="" class="banner_img" />
           </div>
         </div>
         <div class="box_wrap">

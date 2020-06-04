@@ -40,8 +40,8 @@ public class PayFileServiceImpl implements PayFileService {
 			String originalName = file.get(i).getOriginalFilename();
 			byte[] fileData = file.get(i).getBytes();
 			// �쑀�떥�떆�옉
-			String uploadedFileName = UploadFileUtils.saveFile("C:"+File.separator+"payTemp", originalName, fileData);
-			String path = "C:"+File.separator+"payTemp" + uploadedFileName.substring(0, 12);
+			String uploadedFileName = UploadFileUtils.saveFile("D:"+File.separator+"payTemp", originalName, fileData);
+			String path = "D:"+File.separator+"payTemp" + uploadedFileName.substring(0, 12);
 			String saveFileName = uploadedFileName.substring(uploadedFileName.lastIndexOf("/") + 1);
 			String formatName = originalName.substring(originalName.lastIndexOf(".") + 1);
 			//�솗�옣�옄 null 泥댄겕
