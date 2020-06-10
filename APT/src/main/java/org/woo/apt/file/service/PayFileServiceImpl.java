@@ -88,8 +88,8 @@ public class PayFileServiceImpl implements PayFileService {
 	}
 
 	@Override
-	public int listCount() throws Exception {
-		return dao.listCount();
+	public Integer listCount(Paging paging) throws Exception {
+		return dao.listCount(paging);
 	}
 
 	@Override

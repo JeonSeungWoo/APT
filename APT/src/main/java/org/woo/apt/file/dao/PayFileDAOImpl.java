@@ -45,8 +45,8 @@ public class PayFileDAOImpl implements PayFileDAO{
 	}
 
 	@Override
-	public int listCount() throws Exception {
-		return session.selectOne(name+"listCount");
+	public Integer listCount(Paging paging) throws Exception {
+		return session.selectOne(name+"listCount",paging);
 	}
 
 	@Override

@@ -28,8 +28,8 @@
                 <span class="pointC1">안건정리</span> 검색하기
               </div>
               
-              <form action="listPage" method="get" id="form">
-              <input id="pageHidden" type="hidden" name="page" value="${param.page}"> 
+              <form action="listPage" method="get" id="form">  
+              <input id="pageHidden" type="hidden" name="page" value="${param.page}">  
 	          <input type="hidden" name="name" id="name" value="${login.name}">
 	          <input type="hidden" name="phone" id="phone" value="${login.phone}">
                 <div class="srch_val">
@@ -86,12 +86,12 @@
             </table>
           </div>
           
-          <div class="pagingBoxWrap">
+         <div class="pagingBoxWrap">
             <ul class="pagingBox">
             
             <c:if test="${Paging.prev}"> 
               <li class="angleBtn abL">
-                <a href="listPage?page=${(Paging.startPage - 1)}"><i class="fa fa-angle-left" alt="이전페이지">
+                <a href="listPage?page=${(Paging.startPage - 1)}&keyword=${param.keyword}"><i class="fa fa-angle-left" alt="이전페이지">
                     <span class="blind">이전페이지</span>
                 </i></a>
               </li>
@@ -101,12 +101,12 @@
               <c:choose>
                 <c:when test="${param.page eq idx}">
                    <li class="numBtn actOn">
-                    <a  class="pagingNum" href="listPage?page=${idx}">${idx}</a>
+                    <a  class="pagingNum" href="listPage?page=${idx}&keyword=${param.keyword}">${idx}</a>
                    </li>
                 </c:when>
                  <c:otherwise>
                     <li class="numBtn">
-                     <a  class="pagingNum" href="listPage?page=${idx}">${idx}</a>
+                     <a  class="pagingNum" href="listPage?page=${idx}&keyword=${param.keyword}">${idx}</a>
                     </li>
                  </c:otherwise>
               </c:choose>
@@ -114,7 +114,7 @@
             
             <c:if test="${Paging.next && Paging.endPage > 0}">
             <li class="angleBtn abR">
-                <a href="listPage?page=${Paging.endPage +1}"><i class="fa fa-angle-right" alt="다음페이지">
+                <a href="listPage?page=${Paging.endPage +1}&keyword=${param.keyword}"><i class="fa fa-angle-right" alt="다음페이지">
                 <span class="blind">다음페이지</span></i>
                 </a>
               </li>

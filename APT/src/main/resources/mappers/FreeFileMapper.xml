@@ -39,14 +39,12 @@
 		tbl_freeFile
 		where title like '%'||#{keyword}||'%'
 		order by ffno desc
-		LIMIT #{pageSize}
-		OFFSET (#{page} - 1) * #{pageSize}
+		LIMIT #{pageSize} OFFSET (#{page} - 1) * #{pageSize}
 	</select>
 
-	<select id="listCount" resultType="java.lang.Integer">
+	<select id="listCount" parameterType="Paging" resultType="java.lang.Integer">
 		select count(1) from
 		tbl_freeFile
-		where title like '%'||#{keyword}||'%'
 	</select>
 
 	<!-- HomeList -->

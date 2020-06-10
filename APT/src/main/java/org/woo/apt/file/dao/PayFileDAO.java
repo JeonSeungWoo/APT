@@ -12,7 +12,7 @@ public interface PayFileDAO {
 		public void update(PayFileVO vo) throws Exception;
 		public void delete(int pfno) throws Exception;
 		public List<PayFileVO>list(Paging paging)throws Exception;
-		public int listCount()throws Exception;
+		public Integer listCount(Paging paging)throws Exception;
 		public List<PayFileVO>homeList()throws Exception;
 		public void paymentInsert(PaymentVO vo)throws Exception;
 }

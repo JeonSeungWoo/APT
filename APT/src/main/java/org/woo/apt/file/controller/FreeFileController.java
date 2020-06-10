@@ -74,7 +74,7 @@ public class FreeFileController {
 		@RequestMapping(value = "/listPage", method = RequestMethod.GET)
 		public void listPage(Model model,int page,Paging paging) throws Exception {                                                                                                
 			model.addAttribute("list",service.list(paging));
-			model.addAttribute("Paging", new Paging(page, service.listCount()));
+			model.addAttribute("Paging", new Paging(page, service.listCount(paging)));
 		}
 
 		

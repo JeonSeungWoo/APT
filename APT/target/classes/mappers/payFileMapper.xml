@@ -42,9 +42,9 @@
 		LIMIT #{pageSize} OFFSET (#{page} - 1) * #{pageSize}
 	</select>
 
-	<select id="listCount" resultType="java.lang.Integer">
-		select count(1) from
-		tbl_payFile
+	<select id="listCount"  parameterType="Paging" resultType="java.lang.Integer">
+		select count(*)
+		from tbl_payFile
 		where title like '%'||#{keyword}||'%'
 	</select>
 

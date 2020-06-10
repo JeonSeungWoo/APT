@@ -44,8 +44,8 @@ public class FreeFileDAOImpl implements FreeFileDAO{
 	}
 
 	@Override
-	public int listCount() throws Exception {
-		return session.selectOne(name+"listCount");
+	public int listCount(Paging paging) throws Exception {
+		return session.selectOne(name+"listCount",paging);
 	}
 
 	@Override

@@ -24,9 +24,9 @@
 			</ul>
 
 			<ul class="lnb_nav">
-				<li><a href="/payFile/listPage?page=1">안건정리</a></li>
+				<li><a href="/payFile/listPage?page=1&keyword=">안건정리</a></li>
 				<li><a href="/advice/listPage?page=1">법률자문</a></li>
-				<li><a href="/freeFile/listPage?page=1">일반자료</a></li>
+				<li><a href="/freeFile/listPage?page=1&keyword=">일반자료</a></li>
 				<li><a href="/service/listPage?page=1">고객센터</a></li>
 				<li><a href="/notice/listPage?page=1">공지사항</a></li>
 			</ul>

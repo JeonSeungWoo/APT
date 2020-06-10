@@ -10,8 +10,7 @@ public class Paging {
 	private int pageSize = 10; // �럹�씠吏� �겕湲�
 
 	// 寃��깋湲곕뒫�쓣 �궗�슜�븷 �븣留�.
-	private String keyword = ""; // �궎�썙�뱶
-	private String auth;
+	private String keyword =""; // �궎�썙�뱶
 
 	public Paging() {
 
@@ -46,13 +45,7 @@ public class Paging {
 		}
 	}
 
-	public String getAuth() {
-		return auth;
-	}
-
-	public void setAuth(String auth) {
-		this.auth = auth;
-	}
+	
 
 	public int getPageSize() {
 		return pageSize;
@@ -122,8 +115,8 @@ public class Paging {
 	public String toString() {
 		return "Paging [prev=" + prev + ", next=" + next + ", startPage=" + startPage + ", endPage=" + endPage
 				+ ", totalPage=" + totalPage + ", page=" + page + ", pageSize=" + pageSize + ", keyword=" + keyword
-				+ ", auth=" + auth + "]";
+				+ "]";
 	}
 
-	
+
 }

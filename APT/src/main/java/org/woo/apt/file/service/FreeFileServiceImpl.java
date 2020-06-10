@@ -84,8 +84,8 @@ public class FreeFileServiceImpl implements FreeFileService {
 	}
 
 	@Override
-	public int listCount() throws Exception {
-		return dao.listCount();
+	public int listCount(Paging paging) throws Exception {
+		return dao.listCount(paging);
 	}
 
 	@Override
